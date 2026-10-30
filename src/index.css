@@ -76,6 +76,15 @@
   }
 }
 
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
 /* Opposing wave animations for the zigzag floating effect */
 @keyframes float-wave-up {
   0%, 100% {
@@ -125,6 +134,10 @@
 
 .animate-marquee-reverse {
   animation: marquee-reverse 36s linear infinite;
+}
+
+.animate-ticker {
+  animation: ticker 28s linear infinite;
 }
 
 .animate-float-wave-up {

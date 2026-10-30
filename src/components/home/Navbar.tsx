@@ -24,7 +24,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-11 z-40 transition-[background-color,backdrop-filter,border-color] duration-500 ease-editorial ${
+      className={`fixed inset-x-0 top-10 z-40 transition-[background-color,backdrop-filter,border-color] duration-500 ease-editorial ${
         scrolled ? 'border-b border-silver/60 bg-ivory/80 backdrop-blur-xl' : 'border-b border-transparent bg-transparent'
       }`}
     >
