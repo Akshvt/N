@@ -25,7 +25,7 @@ const benefits = [
   },
 ];
 
-const benefitProducts = [products[0], products[1], products[2], products[0]];
+const hero = products[0];
 
 export function BenefitsCarousel() {
   return (
@@ -40,7 +40,6 @@ function DesktopBenefits() {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
   const active = Math.min(Math.round(progress * (benefits.length - 1)), benefits.length - 1);
   const current = benefits[active];
-  const currentProduct = benefitProducts[active] || products[0];
 
   return (
     <div ref={ref} className="relative hidden h-[400vh] md:block">
@@ -62,15 +61,11 @@ function DesktopBenefits() {
           </ol>
 
           <div className="relative col-span-5 flex items-center justify-center">
-            <div aria-hidden="true" className="absolute h-[440px] w-[440px] rounded-full bg-white/70 shadow-inner" />
-            <div className="relative flex flex-col items-center scale-125">
-              <div key={active} className="animate-float-showcase will-change-transform transition-all duration-700">
-                <ProductRender product={currentProduct} format="tub" />
+            <div aria-hidden="true" className="absolute h-[440px] w-[440px] rounded-full bg-white/70" />
+            <div className="relative scale-125">
+              <div className="animate-float-showcase will-change-transform">
+                <ProductRender product={hero} format="tub" />
               </div>
-              <div
-                aria-hidden="true"
-                className="mt-4 h-5 w-44 rounded-[50%] bg-ink/20 animate-shadow-showcase"
-              />
             </div>
           </div>
 
@@ -105,26 +100,16 @@ function MobileBenefits() {
         </h2>
       </div>
       <div className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none]">
-        {benefits.map((benefit, index) => (
+        {benefits.map((benefit) => (
           <article
             key={benefit.name}
-            className="flex w-[82%] shrink-0 snap-center flex-col justify-between rounded-card bg-white p-8"
+            className="w-[82%] shrink-0 snap-center rounded-card bg-white p-8"
           >
-            <div>
-              <p className="eyebrow">{benefit.name}</p>
-              <h3 className="mt-4 font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em]">
-                {benefit.headline}
-              </h3>
-              <p className="mt-4 text-[15px] leading-[24px] text-ink-muted">{benefit.body}</p>
-            </div>
-            <div className="my-6 flex justify-center py-4">
-              <div className="relative flex flex-col items-center scale-90">
-                <div className="animate-float-showcase">
-                  <ProductRender product={benefitProducts[index % benefitProducts.length]} format="tub" />
-                </div>
-                <div aria-hidden="true" className="mt-3 h-3.5 w-32 rounded-[50%] bg-ink/20 animate-shadow-showcase" />
-              </div>
-            </div>
+            <p className="eyebrow">{benefit.name}</p>
+            <h3 className="mt-4 font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em]">
+              {benefit.headline}
+            </h3>
+            <p className="mt-4 text-[15px] leading-[24px] text-ink-muted">{benefit.body}</p>
           </article>
         ))}
       </div>
