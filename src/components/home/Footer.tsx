@@ -122,7 +122,7 @@ export function Footer() {
               <li key={policy}>
                 <a
                   href="#"
-                  className="text-[12px] font-medium uppercase tracking-[0.08em] transition-colors duration-300 text-cobalt hover:text-accent"
+                  className="text-[12px] font-medium uppercase tracking-[0.08em] text-ink-muted transition-colors duration-300 hover:text-ink"
                 >
                   {policy}
                 </a>
