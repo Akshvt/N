@@ -29,15 +29,16 @@ const steps: Step[] = [
 
 export function SplitSticky() {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
-  const active = Math.round(progress * (steps.length - 1));
+  const active = Math.min(Math.floor(progress * steps.length), steps.length - 1);
 
   return (
-    <section className="mx-auto max-w-content px-6 md:px-10">
-      <div ref={ref} className="grid gap-12 py-20 md:grid-cols-2 md:items-start md:gap-24 md:py-0">
-        <div className="md:sticky md:top-0 md:flex md:h-screen md:flex-col md:justify-center">
+    <section className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-32">
+      <div ref={ref} className="grid gap-12 md:grid-cols-2 md:items-start md:gap-20">
+        {/* Sticky Left Column */}
+        <div className="md:sticky md:top-36 md:flex md:flex-col md:justify-start">
           <Reveal>
-            <p className="eyebrow">How it is made</p>
-            <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[72px] md:leading-[74px]">
+            <p className="eyebrow text-cobalt font-bold tracking-[0.12em] uppercase">How it is made</p>
+            <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[64px] md:leading-[68px]">
               Designed for your body.
             </h2>
             <p className="mt-6 max-w-sm text-[17px] leading-[28px] text-ink-muted">
@@ -48,15 +49,16 @@ export function SplitSticky() {
             {steps.map((step, index) => (
               <span
                 key={step.title}
-                className={`h-1 rounded-full bg-ink transition-all duration-700 ease-editorial ${
-                  index === active ? 'w-12' : 'w-4 bg-ink/20'
+                className={`h-1.5 rounded-full transition-all duration-500 ease-editorial ${
+                  index === active ? 'w-12 bg-cobalt' : 'w-4 bg-ink/20'
                 }`}
               />
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 md:gap-0">
+        {/* Right Column with Normal, Balanced Card Spacing */}
+        <div className="flex flex-col gap-8 md:gap-10">
           {steps.map((step, index) => (
             <StepCard key={step.title} step={step} index={index} active={index === active} />
           ))}
@@ -68,22 +70,25 @@ export function SplitSticky() {
 
 function StepCard({ step, index, active }: { step: Step; index: number; active: boolean }) {
   const Icon = step.icon;
-  const badgeStyles = ['bg-lilac text-ink', 'bg-cobalt text-white shadow-sm', 'bg-accent text-ink'];
 
   return (
-    <div className="md:flex md:min-h-screen md:items-center">
+    <div className="w-full">
       <div
-        className={`w-full rounded-card border border-silver/70 bg-white p-8 transition-opacity duration-700 ease-editorial md:p-12 ${
-          active ? 'md:opacity-100' : 'md:opacity-30'
+        className={`w-full rounded-card border bg-white p-8 transition-all duration-500 ease-editorial md:p-12 ${
+          active
+            ? 'border-cobalt/40 shadow-xl opacity-100'
+            : 'border-silver/60 opacity-60 hover:opacity-100 hover:shadow-md'
         }`}
       >
         <div className="flex items-center justify-between">
-          <span className={`flex h-14 w-14 items-center justify-center rounded-full ${badgeStyles[index % badgeStyles.length]}`}>
-            <Icon size={24} strokeWidth={1.75} aria-hidden="true" />
+          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cobalt text-accent shadow-sm">
+            <Icon size={24} strokeWidth={2} aria-hidden="true" />
           </span>
-          <span className="font-display text-[15px] font-medium text-ink-muted">0{index + 1}</span>
+          <span className="font-mono text-[14px] font-bold text-cobalt">0{index + 1}</span>
         </div>
-        <h3 className="mt-8 font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em]">{step.title}</h3>
+        <h3 className="mt-8 font-display text-[30px] font-medium leading-[36px] tracking-[-0.02em] text-ink md:text-[32px]">
+          {step.title}
+        </h3>
         <p className="mt-3 max-w-md text-[17px] leading-[28px] text-ink-muted">{step.line}</p>
         <StepGraphic index={index} active={active} />
       </div>
@@ -96,7 +101,7 @@ function StepGraphic({ index, active }: { index: number; active: boolean }) {
     return (
       <div className="mt-10 h-2 w-full overflow-hidden rounded-full bg-ink/10" aria-hidden="true">
         <div
-          className={`h-full rounded-full bg-ink transition-[width] duration-[1200ms] ease-editorial ${
+          className={`h-full rounded-full bg-cobalt transition-[width] duration-[1000ms] ease-editorial ${
             active ? 'w-full' : 'w-0'
           }`}
         />
@@ -119,7 +124,7 @@ function StepGraphic({ index, active }: { index: number; active: boolean }) {
             <span className="flex h-6 w-6 items-center justify-center rounded-full bg-cobalt text-accent">
               <Check size={14} strokeWidth={2.5} />
             </span>
-            {row}
+            <span className="font-medium text-ink">{row}</span>
           </li>
         ))}
       </ul>
@@ -133,7 +138,7 @@ function StepGraphic({ index, active }: { index: number; active: boolean }) {
         <span
           key={barIndex}
           style={{ height: `${height}%`, transitionDelay: `${barIndex * 110}ms` }}
-          className={`flex-1 origin-bottom rounded-t-[10px] bg-ink transition-transform duration-[900ms] ease-editorial ${
+          className={`flex-1 origin-bottom rounded-t-[10px] bg-ink/20 transition-transform duration-[900ms] ease-editorial ${
             active ? 'scale-y-100' : 'scale-y-[0.2]'
           } ${barIndex === 3 ? 'bg-accent' : barIndex === 1 ? 'bg-cobalt' : ''}`}
         />

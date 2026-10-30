@@ -58,7 +58,7 @@ export function Footer() {
                     <li key={link}>
                       <a
                         href="#"
-                        className="text-[15px] font-medium text-ink/80 transition-colors duration-300 hover:text-cobalt"
+                        className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
                       >
                         {link}
                       </a>
@@ -122,7 +122,7 @@ export function Footer() {
               <li key={policy}>
                 <a
                   href="#"
-                  className="text-[12px] font-medium uppercase tracking-[0.08em] transition-colors duration-300 hover:text-cobalt"
+                  className="text-[12px] font-medium uppercase tracking-[0.08em] transition-colors duration-300 text-cobalt hover:text-accent"
                 >
                   {policy}
                 </a>
