@@ -10,9 +10,9 @@ export function AnnouncementTicker() {
   const group = [...claims, ...claims];
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 h-11 overflow-hidden bg-cobalt text-white shadow-sm">
-      {/* Centered transparent brand logo directly on the blue divider bar */}
-      <div className="absolute inset-y-0 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2.5 px-6 bg-cobalt">
+    <div className="fixed inset-x-0 top-0 z-50 h-11 overflow-hidden bg-cobalt text-white">
+      {/* Centered brand logo: seamless blend without any borders or harsh edges */}
+      <div className="absolute inset-y-0 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2.5 px-8 bg-cobalt shadow-[0_0_24px_12px_#2A24BD]">
         <img
           src="/brand/namhya-icon-clean.png"
           alt="By Namhya"
