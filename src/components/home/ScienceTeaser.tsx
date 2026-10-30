@@ -70,8 +70,10 @@ function ScienceCard({ id, number, title, summary, detail }: ScienceCardProps) {
 
   return (
     <article
-      className={`flex h-full flex-col rounded-card border border-ink/10 p-8 transition-all duration-500 ease-editorial md:p-10 ${
-        open ? 'bg-white shadow-md' : 'bg-white/80 shadow-xs hover:bg-white hover:shadow-md'
+      className={`group flex h-full flex-col rounded-card border transition-all duration-500 ease-editorial p-8 md:p-10 backdrop-blur-xl ${
+        open
+          ? 'border-white/90 bg-white/70 shadow-[0_16px_36px_-8px_rgba(42,36,189,0.12)]'
+          : 'border-white/60 bg-white/45 shadow-[0_8px_30px_rgba(42,36,189,0.05)] hover:border-white/85 hover:bg-white/60 hover:shadow-[0_16px_36px_-8px_rgba(42,36,189,0.1)]'
       }`}
     >
       <div className="flex items-start justify-between gap-6">
@@ -92,8 +94,8 @@ function ScienceCard({ id, number, title, summary, detail }: ScienceCardProps) {
           onClick={() => setOpen((value) => !value)}
           className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt ${
             open
-              ? 'border-ink bg-ink text-white'
-              : 'border-ink/20 text-ink hover:border-accent hover:bg-accent'
+              ? 'border-ink bg-ink text-white shadow-sm'
+              : 'border-white/80 bg-white/70 text-ink backdrop-blur-sm hover:border-accent hover:bg-accent'
           }`}
         >
           <Plus

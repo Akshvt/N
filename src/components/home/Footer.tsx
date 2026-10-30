@@ -41,7 +41,7 @@ export function Footer() {
                 </span>
               </div>
             </div>
-            <p className="mt-6 max-w-sm text-[16px] leading-[26px] text-ink-muted">
+            <p className="mt-6 max-w-sm text-[16px] font-medium leading-[26px] text-cobalt">
               Modern nutrition for real life. Rooted in Ayurveda, backed by published research, and made in India.
             </p>
           </div>
