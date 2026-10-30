@@ -43,7 +43,7 @@ export function Hero() {
             <RevealLines
               lines={[
                 'Nutrition for a',
-                <span key="highlight" className="inline-block rounded-[20px] bg-accent text-ink font-semibold px-3 md:px-5">
+                <span key="highlight" className="inline-block rounded-[20px] bg-accent text-ink font-semibold px-3 md:px-5 selection:bg-cobalt selection:text-white">
                   stronger
                 </span>,
                 'you.',
