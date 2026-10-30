@@ -5,16 +5,19 @@ import { Reveal } from '@/components/motion/Reveal';
 
 const cards = [
   {
+    number: '01',
     title: 'Every Batch',
     summary: 'Each production run is sampled and sent to an independent laboratory before it is released.',
     detail: 'Batch numbers are printed on every tub and sachet, so any batch can be traced back to its test results.',
   },
   {
+    number: '02',
     title: 'Every Test',
     summary: 'Panels cover contaminants, microbial safety and label accuracy.',
     detail: 'Results are compared against the ingredient amounts on the label before a batch is approved for sale.',
   },
   {
+    number: '03',
     title: 'Every Time',
     summary: 'No batch ships without a passing result, and full reports are published for every formula.',
     detail: 'Reports are organised by formula and batch, so you can check any result yourself.',
@@ -23,13 +26,16 @@ const cards = [
 
 export function ScienceTeaser() {
   return (
-    <section id="science" className="bg-cobalt text-white">
+    <section id="science" className="bg-lilac text-ink">
       <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">
         <Reveal>
-          <p className="eyebrow text-accent font-semibold">Our science</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-white md:text-[56px] md:leading-[60px]">
+          <p className="eyebrow text-cobalt font-bold tracking-[0.12em] uppercase">Our science</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-ink md:text-[56px] md:leading-[60px]">
             Tested for those who test themselves.
           </h2>
+          <p className="mt-4 max-w-xl text-[17px] leading-[28px] text-ink-muted">
+            Independent clinical verification. Every batch verified for potency, heavy metals, and label precision.
+          </p>
         </Reveal>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
@@ -52,50 +58,65 @@ export function ScienceTeaser() {
 
 interface ScienceCardProps {
   id: string;
+  number: string;
   title: string;
   summary: string;
   detail: string;
 }
 
-function ScienceCard({ id, title, summary, detail }: ScienceCardProps) {
+function ScienceCard({ id, number, title, summary, detail }: ScienceCardProps) {
   const [open, setOpen] = useState(false);
   const panelId = `${id}-detail`;
 
   return (
     <article
-      className={`flex h-full flex-col rounded-card border border-white/20 p-8 transition-colors duration-700 ease-editorial md:p-10 ${
-        open ? 'bg-white/15' : 'bg-white/10'
+      className={`flex h-full flex-col rounded-card border border-ink/10 p-8 transition-all duration-500 ease-editorial md:p-10 ${
+        open ? 'bg-white shadow-md' : 'bg-white/80 shadow-xs hover:bg-white hover:shadow-md'
       }`}
     >
       <div className="flex items-start justify-between gap-6">
-        <h3 className="font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em] text-white">{title}</h3>
+        <div>
+          <span className="font-mono text-[12px] font-bold uppercase tracking-[0.16em] text-cobalt">
+            {number}
+          </span>
+          <h3 className="mt-2 font-display text-[30px] font-medium leading-[36px] tracking-[-0.02em] text-ink md:text-[32px]">
+            {title}
+          </h3>
+        </div>
+
         <button
           type="button"
           aria-expanded={open}
           aria-controls={panelId}
           aria-label={open ? `Hide ${title} details` : `Show ${title} details`}
           onClick={() => setOpen((value) => !value)}
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/40 text-white transition-colors duration-500 hover:bg-accent hover:text-cobalt hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full border transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt ${
+            open
+              ? 'border-ink bg-ink text-white'
+              : 'border-ink/20 text-ink hover:border-accent hover:bg-accent'
+          }`}
         >
           <Plus
             size={20}
-            strokeWidth={1.75}
+            strokeWidth={2}
             aria-hidden="true"
-            className={`transition-transform duration-700 ease-editorial ${open ? 'rotate-45' : 'rotate-0'}`}
+            className={`transition-transform duration-500 ease-editorial ${open ? 'rotate-45' : 'rotate-0'}`}
           />
         </button>
       </div>
 
-      <p className="mt-6 text-[17px] leading-[28px] text-white/80">{summary}</p>
+      <p className="mt-6 text-[16px] leading-[26px] text-ink-muted">{summary}</p>
 
       <div
         id={panelId}
-        className={`grid transition-[grid-template-rows] duration-700 ease-editorial ${
+        className={`grid transition-[grid-template-rows] duration-500 ease-editorial ${
           open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
         }`}
       >
         <div className="overflow-hidden">
-          <p className="pt-6 text-[15px] leading-[24px] text-white/75">{detail}</p>
+          <p className="border-t border-ink/10 pt-5 mt-5 text-[15px] leading-[24px] text-ink/80">
+            {detail}
+          </p>
         </div>
       </div>
     </article>

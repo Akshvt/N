@@ -10,7 +10,7 @@ export function BrandStory() {
           {/* Left: Editorial Moodboard Image Frame */}
           <div className="lg:col-span-6">
             <Reveal variant="image">
-              <div className="group relative overflow-hidden rounded-[32px] border border-silver/60 bg-cobalt p-2 shadow-2xl transition-transform duration-700 hover:scale-[1.01]">
+              <div className="group relative overflow-hidden rounded-[32px] border border-silver/60 bg-white p-2 shadow-2xl transition-transform duration-700 hover:scale-[1.01]">
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[26px] bg-ink">
                   <img
                     src="/brand/namhya-moodboard.jpg"

@@ -16,7 +16,7 @@ const shell: Record<Variant, string> = {
 };
 
 const sweep: Record<Variant, string> = {
-  primary: 'bg-cobalt',
+  primary: 'bg-ink',
   secondary: 'bg-ink',
 };
 

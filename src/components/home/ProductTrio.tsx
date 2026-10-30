@@ -121,8 +121,8 @@ function ProductCard({ product }: { product: Product }) {
             aria-label={`Add ${product.name} ${format} to cart`}
             className={`relative flex h-12 shrink-0 items-center justify-center overflow-hidden rounded-full font-medium transition-all duration-500 ease-editorial active:scale-95 ${
               added
-                ? 'w-12 bg-cobalt text-white shadow-md'
-                : 'w-[146px] bg-ink text-white hover:bg-cobalt hover:shadow-lg'
+                ? 'w-12 bg-ink text-accent shadow-md'
+                : 'w-[146px] bg-accent text-ink hover:bg-ink hover:text-white hover:shadow-lg'
             }`}
           >
             <span
