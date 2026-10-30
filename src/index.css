@@ -53,12 +53,222 @@
   }
 }
 
+/* ============================================================
+   Keyframes: Floating Product Animations & Dynamic Shadows
+   ============================================================ */
+
+/* Hero Tub Float: Buoyant levitation with subtle organic tilt */
+@keyframes float-hero-tub {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(0, -14px, 0) rotate(-1.2deg);
+  }
+  50% {
+    transform: translate3d(0, -26px, 0) rotate(0.6deg);
+  }
+  75% {
+    transform: translate3d(0, -12px, 0) rotate(1.4deg);
+  }
+}
+
+/* Hero Sachet Float: Slightly lighter, distinct frequency and tilt */
+@keyframes float-hero-sachet {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg);
+  }
+  30% {
+    transform: translate3d(0, -24px, 0) rotate(1.8deg);
+  }
+  60% {
+    transform: translate3d(0, -10px, 0) rotate(-1deg);
+  }
+  85% {
+    transform: translate3d(0, -28px, 0) rotate(-1.6deg);
+  }
+}
+
+/* Benefits / Gut Section Product Showcase Float */
+@keyframes float-showcase {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0) rotate(0deg) scale(1);
+  }
+  30% {
+    transform: translate3d(0, -16px, 0) rotate(-1deg) scale(1.015);
+  }
+  60% {
+    transform: translate3d(0, -28px, 0) rotate(0.8deg) scale(1.025);
+  }
+  85% {
+    transform: translate3d(0, -12px, 0) rotate(1.2deg) scale(1.01);
+  }
+}
+
+/* Subtle Bobbing for cards or secondary products */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+/* Dynamic Floor / Backdrop Contact Shadow (syncs with floating) */
+@keyframes shadow-breathe-tub {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.32;
+    filter: blur(8px);
+  }
+  50% {
+    transform: scale(0.78);
+    opacity: 0.14;
+    filter: blur(14px);
+  }
+}
+
+@keyframes shadow-breathe-sachet {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.28;
+    filter: blur(7px);
+  }
+  50% {
+    transform: scale(0.74);
+    opacity: 0.12;
+    filter: blur(13px);
+  }
+}
+
+@keyframes shadow-breathe-showcase {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.28;
+    filter: blur(10px);
+  }
+  60% {
+    transform: scale(0.78);
+    opacity: 0.12;
+    filter: blur(18px);
+  }
+}
+
+/* ============================================================
+   Keyframes: Zigzag Testimonials Auto-Scroll & Bobbing
+   ============================================================ */
+
+/* Seamless infinite horizontal marquee */
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-scroll-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Staggered floating bobbing waves for individual review cards */
+@keyframes float-card-wave-1 {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0);
+  }
+}
+
+@keyframes float-card-wave-2 {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, 16px, 0);
+  }
+}
+
+@keyframes float-card-wave-3 {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, -12px, 0);
+  }
+}
+
+@keyframes float-card-wave-4 {
+  0%, 100% {
+    transform: translate3d(0, 0px, 0);
+  }
+  50% {
+    transform: translate3d(0, 12px, 0);
+  }
+}
+
 .marquee-track {
   animation: marquee 38s linear infinite;
 }
 
 .animate-float {
   animation: float-y 9s ease-in-out infinite;
+}
+
+.animate-float-hero-tub {
+  animation: float-hero-tub 4.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-float-hero-sachet {
+  animation: float-hero-sachet 5.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite -2.4s;
+}
+
+.animate-float-showcase {
+  animation: float-showcase 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-shadow-tub {
+  animation: shadow-breathe-tub 4.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-shadow-sachet {
+  animation: shadow-breathe-sachet 5.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite -2.4s;
+}
+
+.animate-shadow-showcase {
+  animation: shadow-breathe-showcase 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+.animate-marquee-scroll {
+  animation: marquee-scroll 48s linear infinite;
+}
+
+.animate-marquee-scroll-reverse {
+  animation: marquee-scroll-reverse 48s linear infinite;
+}
+
+.animate-float-card-1 {
+  animation: float-card-wave-1 4.5s ease-in-out infinite;
+}
+
+.animate-float-card-2 {
+  animation: float-card-wave-2 5s ease-in-out infinite -1.2s;
+}
+
+.animate-float-card-3 {
+  animation: float-card-wave-3 4.2s ease-in-out infinite -2.4s;
+}
+
+.animate-float-card-4 {
+  animation: float-card-wave-4 5.4s ease-in-out infinite -3.6s;
 }
 
 .animate-rise {
@@ -80,7 +290,19 @@
   }
 
   .marquee-track,
-  .animate-float {
+  .animate-float,
+  .animate-float-hero-tub,
+  .animate-float-hero-sachet,
+  .animate-float-showcase,
+  .animate-shadow-tub,
+  .animate-shadow-sachet,
+  .animate-shadow-showcase,
+  .animate-marquee-scroll,
+  .animate-marquee-scroll-reverse,
+  .animate-float-card-1,
+  .animate-float-card-2,
+  .animate-float-card-3,
+  .animate-float-card-4 {
     animation: none !important;
   }
 }

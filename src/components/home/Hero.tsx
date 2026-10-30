@@ -96,15 +96,27 @@ export function Hero() {
           />
           <Reveal variant="image" delay={200} className="absolute right-[10%] top-[10%]">
             <div ref={tubRef} className="will-change-transform">
-              <div className="animate-float">
-                <ProductRender product={nourish} format="tub" />
+              <div className="relative flex flex-col items-center">
+                <div className="animate-float-hero-tub will-change-transform">
+                  <ProductRender product={nourish} format="tub" />
+                </div>
+                <div
+                  aria-hidden="true"
+                  className="mt-4 h-4 w-36 rounded-[50%] bg-ink/25 animate-shadow-tub"
+                />
               </div>
             </div>
           </Reveal>
           <Reveal variant="image" delay={400} className="absolute bottom-[4%] left-[6%]">
             <div ref={sachetRef} className="will-change-transform">
-              <div className="animate-float [animation-delay:-4s]">
-                <ProductRender product={strength} format="sachet" />
+              <div className="relative flex flex-col items-center">
+                <div className="animate-float-hero-sachet will-change-transform">
+                  <ProductRender product={strength} format="sachet" />
+                </div>
+                <div
+                  aria-hidden="true"
+                  className="mt-3 h-3.5 w-28 rounded-[50%] bg-ink/20 animate-shadow-sachet"
+                />
               </div>
             </div>
           </Reveal>
