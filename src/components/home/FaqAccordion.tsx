@@ -30,7 +30,7 @@ export function FaqAccordion() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="mx-auto max-w-content px-6 pb-20 md:px-10 md:pb-40">
+    <section className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-36">
       <div className="grid gap-12 md:grid-cols-12">
         <div className="md:col-span-4">
           <SectionHeading eyebrow="Questions" title="Good questions, plain answers." />
