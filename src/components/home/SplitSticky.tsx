@@ -29,16 +29,16 @@ const steps: Step[] = [
 
 export function SplitSticky() {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
-  const active = Math.min(Math.floor(progress * steps.length), steps.length - 1);
+  const active = Math.min(Math.round(progress * (steps.length - 1)), steps.length - 1);
 
   return (
-    <section className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-32">
-      <div ref={ref} className="grid gap-12 md:grid-cols-2 md:items-start md:gap-20">
-        {/* Sticky Left Column */}
-        <div className="md:sticky md:top-36 md:flex md:flex-col md:justify-start">
+    <section className="mx-auto max-w-content px-6 md:px-10">
+      <div ref={ref} className="grid gap-12 py-16 md:grid-cols-2 md:items-start md:gap-24 md:py-0">
+        {/* Sticky Left Column with Centered Content */}
+        <div className="md:sticky md:top-0 md:flex md:h-screen md:flex-col md:justify-center">
           <Reveal>
             <p className="eyebrow text-cobalt font-bold tracking-[0.12em] uppercase">How it is made</p>
-            <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[64px] md:leading-[68px]">
+            <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[68px] md:leading-[72px]">
               Designed for your body.
             </h2>
             <p className="mt-6 max-w-sm text-[17px] leading-[28px] text-ink-muted">
@@ -57,8 +57,8 @@ export function SplitSticky() {
           </div>
         </div>
 
-        {/* Right Column with Normal, Balanced Card Spacing */}
-        <div className="flex flex-col gap-8 md:gap-10">
+        {/* Right Column: Preserving Original Scroll Rhythm with 70% Calibrated Gap */}
+        <div className="flex flex-col gap-6 md:gap-0">
           {steps.map((step, index) => (
             <StepCard key={step.title} step={step} index={index} active={index === active} />
           ))}
@@ -72,12 +72,12 @@ function StepCard({ step, index, active }: { step: Step; index: number; active: 
   const Icon = step.icon;
 
   return (
-    <div className="w-full">
+    <div className="md:flex md:min-h-[70vh] md:items-center">
       <div
-        className={`w-full rounded-card border bg-white p-8 transition-all duration-500 ease-editorial md:p-12 ${
+        className={`w-full rounded-card border bg-white p-8 transition-all duration-700 ease-editorial md:p-12 ${
           active
-            ? 'border-cobalt/40 shadow-xl opacity-100'
-            : 'border-silver/60 opacity-60 hover:opacity-100 hover:shadow-md'
+            ? 'border-cobalt/40 shadow-xl opacity-100 scale-[1.01]'
+            : 'border-silver/60 opacity-35 hover:opacity-70 hover:shadow-md'
         }`}
       >
         <div className="flex items-center justify-between">
@@ -86,7 +86,7 @@ function StepCard({ step, index, active }: { step: Step; index: number; active: 
           </span>
           <span className="font-mono text-[14px] font-bold text-cobalt">0{index + 1}</span>
         </div>
-        <h3 className="mt-8 font-display text-[30px] font-medium leading-[36px] tracking-[-0.02em] text-ink md:text-[32px]">
+        <h3 className="mt-8 font-display text-[30px] font-medium leading-[36px] tracking-[-0.02em] text-ink md:text-[34px] md:leading-[40px]">
           {step.title}
         </h3>
         <p className="mt-3 max-w-md text-[17px] leading-[28px] text-ink-muted">{step.line}</p>
