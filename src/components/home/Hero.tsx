@@ -71,7 +71,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={750}>
-            <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-4 text-[13px] font-medium uppercase tracking-[0.08em] text-ink">
+            <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-4 text-[13px] font-medium uppercase tracking-[0.08em] text-cobalt">
               <span className="flex items-center gap-2">
                 <FlaskConical size={16} strokeWidth={1.75} className="text-cobalt" aria-hidden="true" />
                 Lab tested
