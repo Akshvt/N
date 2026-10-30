@@ -23,11 +23,11 @@ const cards = [
 
 export function ScienceTeaser() {
   return (
-    <section id="science" className="bg-ink text-ivory">
+    <section id="science" className="bg-cobalt text-white">
       <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">
         <Reveal>
-          <p className="eyebrow text-accent">Our science</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[56px] md:leading-[60px]">
+          <p className="eyebrow text-accent font-semibold">Our science</p>
+          <h2 className="mt-4 max-w-3xl font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-white md:text-[56px] md:leading-[60px]">
             Tested for those who test themselves.
           </h2>
         </Reveal>
@@ -42,7 +42,7 @@ export function ScienceTeaser() {
 
         <Reveal delay={200}>
           <div className="mt-16">
-            <PillButton href="/science">View lab reports</PillButton>
+            <PillButton href="#shop">View lab reports</PillButton>
           </div>
         </Reveal>
       </div>
@@ -63,19 +63,19 @@ function ScienceCard({ id, title, summary, detail }: ScienceCardProps) {
 
   return (
     <article
-      className={`flex h-full flex-col rounded-card border border-ivory/15 p-8 transition-colors duration-700 ease-editorial md:p-10 ${
-        open ? 'bg-white/[0.07]' : 'bg-white/[0.03]'
+      className={`flex h-full flex-col rounded-card border border-white/20 p-8 transition-colors duration-700 ease-editorial md:p-10 ${
+        open ? 'bg-white/15' : 'bg-white/10'
       }`}
     >
       <div className="flex items-start justify-between gap-6">
-        <h3 className="font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em]">{title}</h3>
+        <h3 className="font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em] text-white">{title}</h3>
         <button
           type="button"
           aria-expanded={open}
           aria-controls={panelId}
           aria-label={open ? `Hide ${title} details` : `Show ${title} details`}
           onClick={() => setOpen((value) => !value)}
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-ivory/30 transition-colors duration-500 hover:bg-accent hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/40 text-white transition-colors duration-500 hover:bg-accent hover:text-cobalt hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
           <Plus
             size={20}
@@ -86,7 +86,7 @@ function ScienceCard({ id, title, summary, detail }: ScienceCardProps) {
         </button>
       </div>
 
-      <p className="mt-6 text-[17px] leading-[28px] text-ivory/80">{summary}</p>
+      <p className="mt-6 text-[17px] leading-[28px] text-white/80">{summary}</p>
 
       <div
         id={panelId}
@@ -95,7 +95,7 @@ function ScienceCard({ id, title, summary, detail }: ScienceCardProps) {
         }`}
       >
         <div className="overflow-hidden">
-          <p className="pt-6 text-[15px] leading-[24px] text-ivory/75">{detail}</p>
+          <p className="pt-6 text-[15px] leading-[24px] text-white/75">{detail}</p>
         </div>
       </div>
     </article>

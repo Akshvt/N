@@ -21,10 +21,9 @@ export function ProductTrio() {
 }
 
 const tintClasses: Record<ProductTint, string> = {
-  ivory: 'border border-silver/70 bg-ivory text-ink',
-  ink: 'bg-ink text-ivory',
-  lilac: 'bg-lilac text-ink',
-  cobalt: 'bg-cobalt text-white shadow-md',
+  ivory: 'border border-silver/70 bg-white text-ink shadow-sm',
+  ink: 'border border-silver/70 bg-white text-ink shadow-sm',
+  lilac: 'bg-lilac text-ink shadow-sm',
 };
 
 const formats: { value: ProductFormat; label: string }[] = [
@@ -42,11 +41,9 @@ function ProductCard({ product }: { product: Product }) {
     return () => window.clearTimeout(timer);
   }, [added]);
 
-  const isCobalt = product.tint === 'cobalt';
-
   return (
-    <article className={`group flex h-full flex-col rounded-card p-4 transition-colors duration-700 ${tintClasses[product.tint]}`}>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[22px]">
+    <article className={`group flex h-full flex-col rounded-card p-5 transition-colors duration-700 ${tintClasses[product.tint]}`}>
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[22px] bg-ivory/60">
         <div className="absolute inset-0 transition-transform duration-[900ms] ease-editorial group-hover:scale-[1.04]">
           <img
             src={product.lifestyleImage}
@@ -79,23 +76,21 @@ function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="flex flex-1 flex-col px-2 pb-3 pt-6">
-        <h3 className="font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em]">{product.name}</h3>
-        <p className={`mt-2 text-[15px] leading-[24px] ${isCobalt ? 'text-white/80' : 'opacity-80'}`}>{product.descriptor}</p>
+        <h3 className="font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em] text-ink">{product.name}</h3>
+        <p className="mt-2 text-[15px] leading-[24px] text-ink-muted">{product.descriptor}</p>
 
         <div className="mt-auto flex items-end justify-between gap-4 pt-8">
           <div>
-            <p className="font-display text-[24px] font-medium leading-none">{product.prices[format]}</p>
-            <p className={`mt-2 text-[13px] ${isCobalt ? 'text-white/70' : 'opacity-75'}`}>{product.sizes[format]}</p>
+            <p className="font-display text-[24px] font-medium leading-none text-ink">{product.prices[format]}</p>
+            <p className="mt-2 text-[13px] text-ink-muted">{product.sizes[format]}</p>
           </div>
           <button
             type="button"
             onClick={() => setAdded(true)}
             aria-label={`Add ${product.name} ${format} to cart`}
-            className={`relative flex h-12 shrink-0 items-center justify-center overflow-hidden rounded-full font-medium transition-[width,background-color,color] duration-700 ease-editorial ${
-              isCobalt
-                ? 'bg-accent text-cobalt hover:bg-white hover:text-cobalt'
-                : 'bg-accent text-ink hover:bg-cobalt hover:text-white'
-            } ${added ? 'w-12' : 'w-[152px]'}`}
+            className={`relative flex h-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-accent font-medium text-ink transition-[width,background-color,color] duration-700 ease-editorial hover:bg-cobalt hover:text-white ${
+              added ? 'w-12' : 'w-[152px]'
+            }`}
           >
             <span
               className={`absolute whitespace-nowrap text-[15px] font-medium transition-all duration-500 ease-editorial ${

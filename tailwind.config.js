@@ -15,9 +15,9 @@ export default {
           light: '#EEEDFC',
         },
         ink: {
-          DEFAULT: '#0F1F16',
-          soft: '#25362C',
-          muted: '#55655B',
+          DEFAULT: '#121212',
+          soft: '#1E1E1E',
+          muted: '#666666',
         },
         lilac: {
           DEFAULT: '#D7CBF5',

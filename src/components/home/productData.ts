@@ -1,5 +1,5 @@
 export type ProductFormat = 'tub' | 'sachet';
-export type ProductTint = 'ivory' | 'ink' | 'lilac' | 'cobalt';
+export type ProductTint = 'ivory' | 'ink' | 'lilac';
 
 export interface ProductPalette {
   body: string;
@@ -27,10 +27,10 @@ export const products: Product[] = [
     descriptor: 'Whole-food nutrition blend',
     tint: 'ivory',
     palette: {
-      body: 'bg-ink',
-      lid: 'bg-ink-soft',
+      body: 'bg-cobalt',
+      lid: 'bg-cobalt-deep',
       label: 'bg-accent',
-      labelText: 'text-ink',
+      labelText: 'text-cobalt',
     },
     lifestyleImage: 'https://images.pexels.com/photos/3756512/pexels-photo-3756512.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     lifestyleAlt: 'Healthy breakfast routine with whole foods',
@@ -41,12 +41,12 @@ export const products: Product[] = [
     id: 'strength',
     name: 'Daily Strength',
     descriptor: 'Creatine + Ayurvedic botanicals',
-    tint: 'cobalt',
+    tint: 'ivory',
     palette: {
-      body: 'bg-cobalt',
-      lid: 'bg-cobalt-deep',
+      body: 'bg-ink',
+      lid: 'bg-cobalt',
       label: 'bg-accent',
-      labelText: 'text-cobalt',
+      labelText: 'text-ink',
     },
     lifestyleImage: 'https://images.pexels.com/photos/16961403/pexels-photo-16961403.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
     lifestyleAlt: 'Active training and daily performance',
@@ -60,7 +60,7 @@ export const products: Product[] = [
     tint: 'lilac',
     palette: {
       body: 'bg-ivory',
-      lid: 'bg-ink',
+      lid: 'bg-cobalt',
       label: 'bg-lilac',
       labelText: 'text-ink',
     },
