@@ -10,27 +10,30 @@ export function AnnouncementTicker() {
   const group = [...claims, ...claims];
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 h-10 overflow-hidden bg-cobalt text-white shadow-sm">
-      {/* Centered cropped rectangular blue logo above navbar */}
-      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 z-20 flex items-center px-4 bg-cobalt shadow-md border-x border-white/10">
+    <div className="fixed inset-x-0 top-0 z-50 h-11 overflow-hidden bg-cobalt text-white shadow-sm">
+      {/* Centered transparent brand logo directly on the blue divider bar */}
+      <div className="absolute inset-y-0 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2.5 px-6 bg-cobalt">
         <img
-          src="/brand/namhya-logo-rect.png"
+          src="/brand/namhya-icon-clean.png"
           alt="By Namhya"
-          className="h-7 w-auto object-contain"
+          className="h-6 w-auto object-contain md:h-7"
         />
+        <span className="font-display text-[12px] font-bold tracking-[0.16em] uppercase text-white whitespace-nowrap">
+          By Namhya
+        </span>
       </div>
 
-      {/* Ticker marquee gliding smoothly */}
-      <div className="marquee-track flex h-full w-max items-center opacity-90">
+      {/* Marquee claims gliding smoothly */}
+      <div className="marquee-track flex h-full w-max items-center opacity-80">
         {[0, 1].map((copy) => (
           <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
             {group.map((claim, index) => (
               <span
                 key={`${copy}-${index}`}
-                className="flex items-center whitespace-nowrap px-8 text-[12px] font-medium tracking-[0.08em] text-white/90"
+                className="flex items-center whitespace-nowrap px-10 text-[12px] font-medium tracking-[0.08em] text-white/90"
               >
                 {claim}
-                <span className="ml-8 h-1.5 w-1.5 rounded-full bg-accent" />
+                <span className="ml-10 h-1.5 w-1.5 rounded-full bg-accent" />
               </span>
             ))}
           </div>

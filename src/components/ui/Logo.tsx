@@ -6,15 +6,19 @@ interface LogoProps {
 export function Logo({ variant = 'dark', className = '' }: LogoProps) {
   const textColor = variant === 'light' ? 'text-ivory' : 'text-ink';
   const byColor = variant === 'light' ? 'text-accent' : 'text-cobalt';
+  const circleClass =
+    variant === 'light'
+      ? 'bg-white/10 border-white/20'
+      : 'bg-white shadow-sm border-silver/60';
 
   return (
     <span className={`inline-flex items-center gap-3 font-display tracking-tight ${textColor} ${className}`}>
-      {/* Circle with properly zoomed tight brand mark */}
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cobalt p-2 shadow-sm transition-transform duration-300 hover:scale-105 overflow-hidden">
+      {/* Clean circular container with white background and transparent neon icon */}
+      <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full border p-2 transition-transform duration-300 hover:scale-105 ${circleClass}`}>
         <img
-          src="/brand/namhya-icon-tight.png"
+          src="/brand/namhya-icon-clean.png"
           alt="By Namhya"
-          className="h-full w-full object-contain scale-110"
+          className="h-full w-full object-contain"
         />
       </span>
       <span className="flex flex-col leading-none">

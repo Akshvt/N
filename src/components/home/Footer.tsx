@@ -26,24 +26,18 @@ export function Footer() {
         <div className="grid gap-16 md:grid-cols-12">
           {/* Brand Logo & Tagline */}
           <div className="md:col-span-5">
-            <div className="flex flex-col items-start gap-4">
-              <div className="overflow-hidden rounded-2xl bg-white/10 p-2 shadow-lg border border-white/20">
-                <img
-                  src="/brand/namhya-logo-rect.png"
-                  alt="By Namhya"
-                  className="h-16 w-auto object-contain md:h-20"
-                />
-              </div>
-              <div className="mt-2 flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15 p-1.5 shadow-sm border border-white/20 overflow-hidden">
-                  <img
-                    src="/brand/namhya-icon-tight.png"
-                    alt="By Namhya mark"
-                    className="h-full w-full object-contain scale-110"
-                  />
+            <div className="flex items-center gap-4">
+              <img
+                src="/brand/namhya-icon-clean.png"
+                alt="By Namhya"
+                className="h-16 w-auto object-contain md:h-20"
+              />
+              <div className="flex flex-col">
+                <span className="font-display text-[11px] font-bold tracking-[0.25em] text-accent uppercase">
+                  By
                 </span>
-                <span className="font-display text-[15px] font-semibold tracking-wider uppercase text-white/90">
-                  Ayurvedic Science &bull; Modern Daily Care
+                <span className="font-display text-[32px] font-bold tracking-[0.04em] text-white uppercase md:text-[42px] leading-none">
+                  Namhya
                 </span>
               </div>
             </div>

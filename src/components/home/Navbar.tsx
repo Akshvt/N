@@ -24,12 +24,12 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-9 z-40 transition-[background-color,backdrop-filter,border-color] duration-500 ease-editorial ${
+      className={`fixed inset-x-0 top-11 z-40 transition-[background-color,backdrop-filter,border-color] duration-500 ease-editorial ${
         scrolled ? 'border-b border-silver/60 bg-ivory/80 backdrop-blur-xl' : 'border-b border-transparent bg-transparent'
       }`}
     >
       <nav className="mx-auto flex h-20 max-w-content items-center justify-between px-6 md:px-10" aria-label="Main">
-        <a href="#top" aria-label="N° Labs home">
+        <a href="#top" aria-label="By Namhya home">
           <Logo />
         </a>
 
