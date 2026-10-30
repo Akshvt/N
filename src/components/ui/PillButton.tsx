@@ -11,17 +11,17 @@ interface PillButtonProps {
 }
 
 const shell: Record<Variant, string> = {
-  primary: 'bg-accent text-ink',
+  primary: 'bg-accent text-ink font-semibold',
   secondary: 'border border-ink text-ink',
 };
 
 const sweep: Record<Variant, string> = {
-  primary: 'bg-ink',
+  primary: 'bg-cobalt',
   secondary: 'bg-ink',
 };
 
 const labelHover: Record<Variant, string> = {
-  primary: 'group-hover:text-accent',
+  primary: 'group-hover:text-white',
   secondary: 'group-hover:text-ivory',
 };
 

@@ -73,15 +73,16 @@ export function Hero() {
           <Reveal delay={750}>
             <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-4 text-[13px] font-medium uppercase tracking-[0.08em] text-ink">
               <span className="flex items-center gap-2">
-                <FlaskConical size={16} strokeWidth={1.75} aria-hidden="true" />
+                <FlaskConical size={16} strokeWidth={1.75} className="text-cobalt" aria-hidden="true" />
                 Lab tested
               </span>
               <span className="flex items-center gap-2">
-                <Leaf size={16} strokeWidth={1.75} aria-hidden="true" />
+                <Leaf size={16} strokeWidth={1.75} className="text-cobalt" aria-hidden="true" />
                 Plant-based
               </span>
-              <span className="flex h-9 items-center rounded-full border border-dashed border-ink/40 px-4">
-                Certification badge
+              <span className="flex h-9 items-center gap-2 rounded-full border border-cobalt/30 bg-cobalt/5 px-4 font-semibold text-cobalt">
+                <span className="h-1.5 w-1.5 rounded-full bg-cobalt" />
+                Ayurvedic Science
               </span>
             </div>
           </Reveal>

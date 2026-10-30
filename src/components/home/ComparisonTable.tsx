@@ -21,8 +21,9 @@ export function ComparisonTable() {
           <div className="grid grid-cols-[1fr_96px_96px] items-end border-b border-ink/15 pb-6 text-[13px] font-medium uppercase tracking-[0.08em] text-ink-muted md:grid-cols-[1fr_180px_180px]">
             <span />
             <span className="text-center text-ink">
-              <span className="inline-block rounded-full bg-accent px-3 py-1.5 normal-case tracking-normal text-[15px] font-semibold text-ink">
-                N° Labs
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-cobalt px-3.5 py-1.5 normal-case tracking-normal text-[14px] font-semibold text-white shadow-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                By Namhya
               </span>
             </span>
             <span className="text-center">Typical</span>
@@ -58,7 +59,7 @@ function CompareMark({ positive, ours = false }: { positive: boolean; ours?: boo
       <span
         role="img"
         aria-label={label}
-        className={`flex h-9 w-9 items-center justify-center rounded-full ${ours ? 'bg-ink text-accent' : 'bg-ink/10 text-ink'}`}
+        className={`flex h-9 w-9 items-center justify-center rounded-full ${ours ? 'bg-cobalt text-accent' : 'bg-ink/10 text-ink'}`}
       >
         <Check size={18} strokeWidth={2.25} aria-hidden="true" />
       </span>

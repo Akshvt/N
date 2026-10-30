@@ -1,4 +1,10 @@
-const claims = ['Third-party lab tested', 'Whole-food based', 'Made in India'];
+const claims = [
+  'Ancient Wisdom • Modern Science',
+  'Third-Party Lab Tested',
+  'Rooted in Ayurveda',
+  'Whole-Food Based Formulas',
+  'Made in India',
+];
 
 export function AnnouncementTicker() {
   const group = [...claims, ...claims];
@@ -11,10 +17,14 @@ export function AnnouncementTicker() {
             {group.map((claim, index) => (
               <span
                 key={`${copy}-${index}`}
-                className="flex items-center whitespace-nowrap px-8 text-[13px] font-medium uppercase tracking-[0.08em]"
+                className="flex items-center whitespace-nowrap px-8 text-[12px] font-medium uppercase tracking-[0.08em]"
               >
                 {claim}
-                <span className="ml-8 h-1.5 w-1.5 rounded-full bg-accent" />
+                <span
+                  className={`ml-8 h-1.5 w-1.5 rounded-full ${
+                    index % 2 === 0 ? 'bg-accent' : 'bg-cobalt'
+                  }`}
+                />
               </span>
             ))}
           </div>

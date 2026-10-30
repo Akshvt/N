@@ -25,11 +25,19 @@ export function Footer() {
       <div className="mx-auto max-w-content px-6 pb-10 pt-20 md:px-10 md:pt-32">
         <div className="grid gap-16 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="font-display text-[88px] font-medium leading-[0.9] tracking-[-0.03em] md:text-[152px]">
-              N°<br />Labs
-            </p>
+            <div className="flex items-center gap-3.5">
+              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-cobalt p-2.5 shadow-md">
+                <img src="/brand/namhya-icon.png" alt="By Namhya" className="h-full w-full object-contain" />
+              </span>
+              <div>
+                <span className="block text-[11px] font-bold tracking-[0.24em] text-accent uppercase">By</span>
+                <span className="block font-display text-[32px] font-bold tracking-[0.04em] text-ivory md:text-[42px] uppercase">
+                  Namhya
+                </span>
+              </div>
+            </div>
             <p className="mt-8 max-w-sm text-[17px] leading-[28px] text-ivory/75">
-              Science-backed daily formulas for real women and active adults. Made in India.
+              Modern nutrition for real life. Rooted in Ayurveda, backed by published research, and made in India.
             </p>
           </div>
 
@@ -77,7 +85,7 @@ export function Footer() {
                 />
                 <button
                   type="submit"
-                  className="flex h-10 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-[14px] font-medium text-ink transition-colors duration-500 hover:bg-ivory"
+                  className="flex h-10 shrink-0 items-center gap-2 rounded-full bg-accent px-5 text-[14px] font-semibold text-ink transition-colors duration-500 hover:bg-cobalt hover:text-white"
                 >
                   Subscribe
                   <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
@@ -88,7 +96,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col gap-6 border-t border-ivory/15 pt-8 text-[13px] text-ivory/70 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {new Date().getFullYear()} N° Labs by Namhya. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} By Namhya. All rights reserved.</p>
           <ul className="flex flex-wrap gap-x-8 gap-y-3">
             {policies.map((policy) => (
               <li key={policy}>

@@ -68,6 +68,7 @@ export function SplitSticky() {
 
 function StepCard({ step, index, active }: { step: Step; index: number; active: boolean }) {
   const Icon = step.icon;
+  const badgeStyles = ['bg-lilac text-ink', 'bg-cobalt text-white shadow-sm', 'bg-accent text-ink'];
 
   return (
     <div className="md:flex md:min-h-screen md:items-center">
@@ -77,7 +78,7 @@ function StepCard({ step, index, active }: { step: Step; index: number; active: 
         }`}
       >
         <div className="flex items-center justify-between">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lilac text-ink">
+          <span className={`flex h-14 w-14 items-center justify-center rounded-full ${badgeStyles[index % badgeStyles.length]}`}>
             <Icon size={24} strokeWidth={1.75} aria-hidden="true" />
           </span>
           <span className="font-display text-[15px] font-medium text-ink-muted">0{index + 1}</span>
@@ -115,7 +116,7 @@ function StepGraphic({ index, active }: { index: number; active: boolean }) {
             }`}
             style={{ transitionDelay: `${rowIndex * 180}ms` }}
           >
-            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-ink">
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-cobalt text-accent">
               <Check size={14} strokeWidth={2.5} />
             </span>
             {row}
@@ -134,7 +135,7 @@ function StepGraphic({ index, active }: { index: number; active: boolean }) {
           style={{ height: `${height}%`, transitionDelay: `${barIndex * 110}ms` }}
           className={`flex-1 origin-bottom rounded-t-[10px] bg-ink transition-transform duration-[900ms] ease-editorial ${
             active ? 'scale-y-100' : 'scale-y-[0.2]'
-          } ${barIndex === 3 ? 'bg-accent' : ''}`}
+          } ${barIndex === 3 ? 'bg-accent' : barIndex === 1 ? 'bg-cobalt' : ''}`}
         />
       ))}
     </div>

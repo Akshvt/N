@@ -6,6 +6,7 @@ export function QuizBand() {
     <section className="bg-lilac">
       <div className="mx-auto flex max-w-content flex-col items-start gap-10 px-6 py-20 md:flex-row md:items-center md:justify-between md:px-10 md:py-32">
         <Reveal>
+          <p className="eyebrow text-cobalt font-semibold mb-3">Rooted in Ayurveda. Modern science.</p>
           <h2 className="font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-ink md:text-[56px] md:leading-[60px]">
             Not sure where to start?
             <br />

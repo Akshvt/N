@@ -2,6 +2,7 @@ import { AnnouncementTicker } from '@/components/home/AnnouncementTicker';
 import { Navbar } from '@/components/home/Navbar';
 import { Hero } from '@/components/home/Hero';
 import { ProductTrio } from '@/components/home/ProductTrio';
+import { BrandStory } from '@/components/home/BrandStory';
 import { SplitSticky } from '@/components/home/SplitSticky';
 import { ScienceTeaser } from '@/components/home/ScienceTeaser';
 import { BenefitsCarousel } from '@/components/home/BenefitsCarousel';
@@ -19,6 +20,7 @@ function App() {
       <main>
         <Hero />
         <ProductTrio />
+        <BrandStory />
         <SplitSticky />
         <ScienceTeaser />
         <BenefitsCarousel />
