@@ -227,13 +227,11 @@ function MoleculeStory() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const [step, setStep] = useState(0);
 
-  // Subtle, spring-smoothed rotation and scale for silky fluid momentum
-  const rawRotate = useTransform(scrollYProgress, [0, 1], [-2, 10]);
-  const rotate = useSpring(rawRotate, { stiffness: 60, damping: 25 });
-  const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1.02, 0.98]);
-  const scale = useSpring(rawScale, { stiffness: 60, damping: 25 });
+  // Smooth, spring-damped clockwise rotation as you scroll down (-6deg to 34deg = +40deg clockwise sweep)
+  const rawRotate = useTransform(scrollYProgress, [0, 1], [-6, 34]);
+  const rotate = useSpring(rawRotate, { stiffness: 65, damping: 25, mass: 0.5, restDelta: 0.001 });
 
-  // Clean 5-step pacing across generous scroll travel
+  // Paced 5-step quantized transitions across generous scroll runway
   useMotionValueEvent(scrollYProgress, 'change', (v) => {
     const next = Math.min(4, Math.max(0, Math.floor(v * 4.99)));
     setStep((prev) => (prev !== next ? next : prev));
@@ -241,7 +239,7 @@ function MoleculeStory() {
   const s = molecule.steps[step] ?? molecule.steps[0]!;
 
   return (
-    <section ref={ref} className="relative" style={{ height: '420vh' }}>
+    <section ref={ref} className="relative" style={{ height: '480vh' }}>
       <div className="sticky top-16 flex min-h-[calc(100vh-4rem)] flex-col justify-between overflow-hidden py-8 md:py-12">
         <div className="pointer-events-none absolute left-1/2 top-1/2 size-[50vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-lilac/35 blur-[100px]" />
         
@@ -267,10 +265,14 @@ function MoleculeStory() {
             </div>
           </div>
           
-          {/* Preloaded GPU-cached Molecule Stage: Smooth crossfades with zero stutter */}
+          {/* Right: Molecule Stage with Clockwise Rotation & Mask Feathering (no square box) */}
           <motion.div
-            style={{ rotate, scale }}
-            className="relative order-1 mx-auto aspect-square w-[52vw] max-w-[540px] will-change-transform md:order-2 md:w-full"
+            style={{
+              rotate,
+              WebkitMaskImage: 'radial-gradient(circle at center, black 45%, transparent 70%)',
+              maskImage: 'radial-gradient(circle at center, black 45%, transparent 70%)',
+            }}
+            className="relative order-1 mx-auto aspect-square w-[52vw] max-w-[540px] will-change-transform md:order-2 md:w-full [mask-image:radial-gradient(circle_at_center,black_45%,transparent_70%)] [-webkit-mask-image:radial-gradient(circle_at_center,black_45%,transparent_70%)]"
           >
             {mols.map((imgSrc, idx) => (
               <motion.img
@@ -279,15 +281,21 @@ function MoleculeStory() {
                 alt={`Molecule step ${idx + 1}`}
                 width={1024}
                 height={1024}
-                className="absolute inset-0 h-full w-full object-contain mix-blend-multiply pointer-events-none select-none will-change-[transform,opacity]"
+                loading="eager"
+                decoding="async"
+                style={{
+                  WebkitMaskImage: 'radial-gradient(circle at center, black 45%, transparent 70%)',
+                  maskImage: 'radial-gradient(circle at center, black 45%, transparent 70%)',
+                }}
+                className="absolute inset-0 h-full w-full object-contain mix-blend-multiply pointer-events-none select-none will-change-[transform,opacity] [mask-image:radial-gradient(circle_at_center,black_45%,transparent_70%)] [-webkit-mask-image:radial-gradient(circle_at_center,black_45%,transparent_70%)]"
                 initial={false}
                 animate={{
                   opacity: step === idx ? 1 : 0,
-                  scale: step === idx ? 1 : step < idx ? 0.94 : 1.04,
+                  scale: step === idx ? 1 : step < idx ? 0.95 : 1.05,
                 }}
                 transition={{
-                  opacity: { duration: 0.6, ease },
-                  scale: { duration: 0.7, ease },
+                  opacity: { duration: 0.65, ease },
+                  scale: { duration: 0.75, ease },
                 }}
               />
             ))}
