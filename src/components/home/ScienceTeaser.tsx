@@ -48,7 +48,7 @@ export function ScienceTeaser() {
 
         <Reveal delay={200}>
           <div className="mt-16">
-            <PillButton href="#shop">View lab reports</PillButton>
+            <PillButton href="/science#lab-reports">View lab reports</PillButton>
           </div>
         </Reveal>
       </div>

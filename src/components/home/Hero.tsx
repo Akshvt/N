@@ -60,11 +60,11 @@ export function Hero() {
 
           <Reveal delay={600}>
             <div className="mt-10 flex flex-wrap items-center gap-4">
-              <PillButton href="#shop">
+              <PillButton href="/#shop">
                 Shop now
                 <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
               </PillButton>
-              <PillButton variant="secondary" href="#science">
+              <PillButton variant="secondary" href="/science">
                 See the science
               </PillButton>
             </div>

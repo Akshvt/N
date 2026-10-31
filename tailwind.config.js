@@ -8,12 +8,14 @@ export default {
           DEFAULT: '#CBEC6F',
           bright: '#B9FF00',
         },
+        lime: '#CBEC6F',
         cobalt: {
           DEFAULT: '#2A24BD',
           soft: '#3B35D4',
           deep: '#1C1885',
           light: '#EEEDFC',
         },
+        'cobalt-deep': '#1C1885',
         ink: {
           DEFAULT: '#121212',
           soft: '#1E1E1E',

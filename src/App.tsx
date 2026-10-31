@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AnnouncementTicker } from '@/components/home/AnnouncementTicker';
 import { Navbar } from '@/components/home/Navbar';
 import { Hero } from '@/components/home/Hero';
@@ -11,8 +12,10 @@ import { Testimonials } from '@/components/home/Testimonials';
 import { QuizBand } from '@/components/home/QuizBand';
 import { FaqAccordion } from '@/components/home/FaqAccordion';
 import { Footer } from '@/components/home/Footer';
+import { SciencePage } from '@/pages/SciencePage';
+import { LabReportsPage } from '@/pages/LabReportsPage';
 
-function App() {
+function HomePage() {
   return (
     <div className="min-h-screen bg-ivory text-ink">
       <AnnouncementTicker />
@@ -31,6 +34,18 @@ function App() {
       </main>
       <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/science" element={<SciencePage />} />
+        <Route path="/lab-reports" element={<LabReportsPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

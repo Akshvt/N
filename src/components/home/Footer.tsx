@@ -2,9 +2,32 @@ import { useState, type FormEvent } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const columns = [
-  { title: 'Shop', links: ['Daily Nourish', 'Daily Strength', 'Daily Gut', 'Sachets'] },
-  { title: 'Science', links: ['Lab reports', 'Our standards', 'Batch lookup'] },
-  { title: 'Company', links: ['About', 'Careers', 'Contact'] },
+  {
+    title: 'Shop',
+    links: [
+      { label: 'Daily Nourish', href: '/#shop' },
+      { label: 'Daily Strength', href: '/#shop' },
+      { label: 'Daily Gut', href: '/#shop' },
+      { label: 'Sachets', href: '/#shop' },
+    ],
+  },
+  {
+    title: 'Science',
+    links: [
+      { label: 'Science overview', href: '/science' },
+      { label: 'Lab reports', href: '/lab-reports' },
+      { label: 'Our standards', href: '/science' },
+      { label: 'Batch lookup', href: '/lab-reports' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'About', href: '/#about' },
+      { label: 'Careers', href: '#' },
+      { label: 'Contact', href: '#' },
+    ],
+  },
 ];
 
 const policies = ['Privacy', 'Terms', 'Refunds', 'Shipping'];
@@ -55,12 +78,12 @@ export function Footer() {
                 </p>
                 <ul className="mt-6 space-y-4">
                   {column.links.map((link) => (
-                    <li key={link}>
+                    <li key={link.label}>
                       <a
-                        href="#"
+                        href={link.href}
                         className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
                       >
-                        {link}
+                        {link.label}
                       </a>
                     </li>
                   ))}

@@ -157,3 +157,41 @@
 .marquee-wrapper:hover .animate-marquee-reverse {
   animation-play-state: paused;
 }
+
+/* Science Page Glassmorphism & Effects */
+.glass-bubble {
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.9), rgba(215, 203, 245, 0.55) 40%, rgba(42, 36, 189, 0.35) 100%);
+  box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.6), inset -12px -18px 40px rgba(42, 36, 189, 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.glass-dark {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.bg-transparency {
+  background: radial-gradient(ellipse at 20% 20%, #2A24BD, #1C1885 55%, #121212);
+}
+
+@keyframes float-sine {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+.animate-float {
+  animation: float-sine 7s ease-in-out infinite;
+}
+
+/* Watermark and Lovable badge prevention */
+#lovable-badge,
+[id*="lovable-badge"],
+[class*="lovable-badge"],
+[data-lovable] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+

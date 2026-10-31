@@ -3,9 +3,9 @@ import { Menu, Search, ShoppingBag, User, X } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 
 const links = [
-  { label: 'Shop', href: '#shop' },
-  { label: 'Science', href: '#science' },
-  { label: 'About', href: '#about' },
+  { label: 'Shop', href: '/#shop' },
+  { label: 'Science', href: '/science' },
+  { label: 'About', href: '/#about' },
 ];
 
 const iconButton =
@@ -58,7 +58,7 @@ export function Navbar() {
 
         {/* Center: Brand Logo */}
         <div className="flex items-center justify-center md:flex-initial">
-          <a href="#top" aria-label="By Namhya home" className="flex items-center">
+          <a href="/" aria-label="By Namhya home" className="flex items-center">
             <Logo />
           </a>
         </div>
