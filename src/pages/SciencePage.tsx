@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionVa
 import { useRef, useState } from 'react';
 import { SiteShell, LogoMark } from '@/components/site/chrome';
 import { Lines, Reveal, Ring, ease } from '@/components/site/motion';
-import { hero, approach, howItWorks, molecule, sourcing, labReports, consult } from '@/content/science';
+import { hero, approach, howItWorks, molecule, transparency, sourcing, labReports, consult } from '@/content/science';
 import mol1 from '@/assets/mol-1.jpg';
 import mol2 from '@/assets/mol-2.jpg';
 import mol3 from '@/assets/mol-3.jpg';
@@ -20,6 +20,7 @@ export function SciencePage() {
       <Approach />
       <StackedCards />
       <MoleculeStory />
+      <Transparency />
       <Sourcing />
       <Consult />
     </SiteShell>
@@ -269,7 +270,47 @@ function MoleculeStory() {
   );
 }
 
-/* 5. SOURCING */
+/* 5. TRANSPARENCY */
+function Icon({ name }: { name: string }) {
+  return name === 'factory' ? (
+    <svg viewBox="0 0 48 48" className="size-12 text-lime" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M6 42V22l10 6v-6l10 6v-6l10 6V8h6v34z" />
+      <path d="M14 36h4M24 36h4M34 36h4" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 48 48" className="size-12 text-lime" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M18 6h12M20 6v14L9 38a3 3 0 0 0 3 4h24a3 3 0 0 0 3-4L28 20V6" />
+      <path d="M14 30h20" />
+    </svg>
+  );
+}
+
+function Transparency() {
+  return (
+    <section className="relative overflow-hidden bg-transparency text-ivory">
+      <div className="mx-auto grid max-w-[1440px] gap-14 px-5 py-24 md:grid-cols-2 md:px-10 md:py-36">
+        <div className="flex flex-col justify-center">
+          <p className="eyebrow text-lime font-bold tracking-[0.14em]">{transparency.eyebrow}</p>
+          <Lines lines={[transparency.headline]} className="mt-5 text-4xl font-medium md:text-6xl font-display text-white" />
+          <p className="mt-5 text-base text-ivory/80 md:text-lg">{transparency.line}</p>
+        </div>
+        <div className="space-y-6">
+          {transparency.cards.map((c, i) => (
+            <Reveal key={c.title} delay={i * 0.1}>
+              <div className="glass-dark rounded-[32px] p-8 md:p-10">
+                <Icon name={c.icon} />
+                <h3 className="mt-8 font-display text-2xl font-medium text-white">{c.title}</h3>
+                <p className="mt-2 text-sm text-ivory/65 leading-relaxed">{c.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* 6. SOURCING */
 function QR() {
   const cells = Array.from({ length: 81 }, (_, i) => ((i * 37) % 7) % 2 === 0 || [0, 1, 2, 9, 11, 18, 19, 20, 6, 7, 8, 15, 17, 24, 25, 26, 54, 55, 56, 63, 65, 72, 73, 74].includes(i));
   return (

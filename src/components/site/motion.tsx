@@ -13,7 +13,7 @@ export function Lines({ lines, className = "", as = "h2" }: { lines: string[]; c
             className="block"
             initial={{ y: "105%" }}
             whileInView={{ y: 0 }}
-            viewport={{ once: true, margin: "-10%" }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.9, ease, delay: i * 0.1 }}
           >
             {l}
@@ -30,7 +30,7 @@ export function Reveal({ children, className = "", delay = 0 }: { children: Reac
       className={className}
       initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-10%" }}
+      viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.8, ease, delay }}
     >
       {children}

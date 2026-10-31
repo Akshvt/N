@@ -172,7 +172,8 @@
 }
 
 .bg-transparency {
-  background: radial-gradient(ellipse at 20% 20%, #2A24BD, #1C1885 55%, #121212);
+  background: radial-gradient(ellipse at 20% 20%, oklch(0.38 0.24 266), oklch(0.27 0.17 268) 55%, oklch(0.18 0.05 275));
+  background: radial-gradient(ellipse at 20% 20%, #0F17BF, #0C0877 55%, #0C0F27);
 }
 
 @keyframes float-sine {
