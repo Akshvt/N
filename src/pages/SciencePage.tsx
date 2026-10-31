@@ -214,22 +214,38 @@ function MoleculeStory() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const [step, setStep] = useState(0);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-10, 30]);
-  useMotionValueEvent(scrollYProgress, 'change', (v) => setStep(Math.min(4, Math.floor(v * 4.98))));
+
+  // Subtle, spring-smoothed rotation and scale for silky fluid momentum
+  const rawRotate = useTransform(scrollYProgress, [0, 1], [-2, 10]);
+  const rotate = useSpring(rawRotate, { stiffness: 60, damping: 25 });
+  const rawScale = useTransform(scrollYProgress, [0, 0.5, 1], [0.98, 1.02, 0.98]);
+  const scale = useSpring(rawScale, { stiffness: 60, damping: 25 });
+
+  // Clean 5-step pacing across generous scroll travel
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    const next = Math.min(4, Math.max(0, Math.floor(v * 4.99)));
+    setStep((prev) => (prev !== next ? next : prev));
+  });
   const s = molecule.steps[step] ?? molecule.steps[0]!;
 
   return (
-    <section ref={ref} className="relative" style={{ height: '260vh' }}>
+    <section ref={ref} className="relative" style={{ height: '420vh' }}>
       <div className="sticky top-16 flex min-h-[calc(100vh-4rem)] flex-col justify-between overflow-hidden py-8 md:py-12">
-        <div className="pointer-events-none absolute left-1/2 top-1/2 size-[50vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-lilac/45 blur-[120px]" />
+        <div className="pointer-events-none absolute left-1/2 top-1/2 size-[50vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-lilac/35 blur-[100px]" />
         
         <div className="relative mx-auto my-auto grid w-full max-w-[1440px] flex-1 items-center gap-8 px-5 md:grid-cols-[1fr_1.15fr] md:px-10">
           <div className="order-2 md:order-1">
             <p className="eyebrow text-cobalt font-bold tracking-[0.14em]">{molecule.eyebrow}</p>
             <h2 className="mt-4 font-display text-4xl font-medium leading-[1.02] tracking-tight md:text-6xl">{molecule.headline}</h2>
-            <div className="mt-6 min-h-[160px] md:mt-8">
+            <div className="mt-6 min-h-[170px] md:mt-8">
               <AnimatePresence mode="wait">
-                <motion.div key={step} initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -14 }} transition={{ duration: 0.5, ease }}>
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease }}
+                >
                   <p className="eyebrow text-cobalt font-bold">Step 0{step + 1}</p>
                   <h3 className="mt-2 font-display text-2xl font-medium md:text-3xl">{s.title}</h3>
                   <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink/70 md:text-base">{s.body}</p>
@@ -239,28 +255,52 @@ function MoleculeStory() {
             </div>
           </div>
           
-          <motion.div style={{ rotate }} className="relative order-1 mx-auto aspect-square w-[52vw] max-w-[540px] md:order-2 md:w-full">
-            <AnimatePresence>
+          {/* Preloaded GPU-cached Molecule Stage: Smooth crossfades with zero stutter */}
+          <motion.div
+            style={{ rotate, scale }}
+            className="relative order-1 mx-auto aspect-square w-[52vw] max-w-[540px] will-change-transform md:order-2 md:w-full"
+          >
+            {mols.map((imgSrc, idx) => (
               <motion.img
-                key={step}
-                src={mols[step]}
-                alt={`Molecule step ${step + 1}`}
+                key={idx}
+                src={imgSrc}
+                alt={`Molecule step ${idx + 1}`}
                 width={1024}
                 height={1024}
-                className="absolute inset-0 h-full w-full object-contain mix-blend-multiply [mask-image:radial-gradient(circle,black_45%,transparent_70%)]"
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 1.04 }}
-                transition={{ duration: 0.7, ease }}
+                className="absolute inset-0 h-full w-full object-contain mix-blend-multiply pointer-events-none select-none will-change-[transform,opacity]"
+                initial={false}
+                animate={{
+                  opacity: step === idx ? 1 : 0,
+                  scale: step === idx ? 1 : step < idx ? 0.94 : 1.04,
+                }}
+                transition={{
+                  opacity: { duration: 0.6, ease },
+                  scale: { duration: 0.7, ease },
+                }}
               />
-            </AnimatePresence>
+            ))}
           </motion.div>
         </div>
 
         <div className="relative mx-auto flex w-full max-w-[1440px] items-center justify-between px-5 pt-4 md:px-10">
           <div className="flex gap-2">
             {molecule.steps.map((_, i) => (
-              <span key={i} className={`h-2 rounded-full transition-all duration-500 ${i === step ? 'w-8 bg-cobalt' : 'w-2 bg-silver'}`} />
+              <button
+                key={i}
+                type="button"
+                aria-label={`Jump to step ${i + 1}`}
+                onClick={() => {
+                  if (ref.current) {
+                    const top = ref.current.offsetTop;
+                    const totalScroll = ref.current.offsetHeight - window.innerHeight;
+                    const target = top + (i / 4) * totalScroll;
+                    window.scrollTo({ top: target, behavior: 'smooth' });
+                  }
+                }}
+                className={`h-2 rounded-full transition-all duration-500 ease-editorial focus:outline-none ${
+                  i === step ? 'w-8 bg-cobalt' : 'w-2 bg-silver/80 hover:bg-cobalt/40'
+                }`}
+              />
             ))}
           </div>
           <span className="eyebrow text-[0.6rem] text-ink/60">Scroll to explore ↓</span>
