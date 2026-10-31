@@ -30,3 +30,4 @@ export function SiteShell({ children }: { children: ReactNode }) {
     </div>
   );
 }
+

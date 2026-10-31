@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionVa
 import { useRef, useState } from 'react';
 import { SiteShell, LogoMark } from '@/components/site/chrome';
 import { Lines, Reveal, Ring, ease } from '@/components/site/motion';
-import { hero, approach, howItWorks, molecule, transparency, sourcing, labReports, consult } from '@/content/science';
+import { hero, approach, howItWorks, molecule, sourcing, labReports, consult } from '@/content/science';
 import mol1 from '@/assets/mol-1.jpg';
 import mol2 from '@/assets/mol-2.jpg';
 import mol3 from '@/assets/mol-3.jpg';
@@ -20,7 +20,6 @@ export function SciencePage() {
       <Approach />
       <StackedCards />
       <MoleculeStory />
-      <Transparency />
       <Sourcing />
       <Consult />
     </SiteShell>
@@ -34,24 +33,29 @@ function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 40, damping: 20 });
-  const sy = useSpring(my, { stiffness: 40, damping: 20 });
+  // Enhanced spring response for noticeably responsive cursor-follow physics
+  const sx = useSpring(mx, { stiffness: 55, damping: 18 });
+  const sy = useSpring(my, { stiffness: 55, damping: 18 });
   const ringY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
-  // Positions calibrated to stay higher in the stage and not collide with the scroll action
+  // Restored exact connected molecule diagonal chain coordinates matching the original design
   const positions = [
-    'left-[8%] top-[6%] md:left-[16%]',
-    'left-[38%] top-[26%] md:left-[42%]',
-    'left-[10%] top-[46%] md:left-[18%]',
+    'left-[8%] top-[8%] md:left-[18%]',
+    'left-[38%] top-[34%] md:left-[40%]',
+    'left-[12%] top-[62%] md:left-[22%]',
   ];
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[88vh] flex-col items-center justify-between overflow-hidden px-5 pb-10 pt-10 md:min-h-[92vh] md:pb-12 md:pt-14"
+      className="relative flex min-h-[90vh] flex-col items-center justify-between overflow-hidden px-5 pb-12 pt-10 md:min-h-screen md:pb-16 md:pt-14"
       onMouseMove={(e) => {
-        mx.set((e.clientX / window.innerWidth - 0.5) * 24);
-        my.set((e.clientY / window.innerHeight - 0.5) * 24);
+        const rect = e.currentTarget.getBoundingClientRect();
+        const xNorm = (e.clientX - rect.left) / rect.width - 0.5;
+        const yNorm = (e.clientY - rect.top) / rect.height - 0.5;
+        // Increased range from 30 to 75 so the molecule glides distinctly toward the cursor
+        mx.set(xNorm * 75);
+        my.set(yNorm * 75);
       }}
     >
       <motion.div style={{ y: ringY }} className="pointer-events-none absolute -left-16 top-24 w-56 text-lilac md:w-80"><Ring className="animate-float" /></motion.div>
@@ -62,28 +66,35 @@ function Hero() {
         <Lines as="h1" lines={hero.headline} className="mt-4 text-center text-4xl font-medium leading-[1.02] text-ink md:text-7xl font-display" />
       </div>
 
-      <motion.div style={{ y, x: sx, translateY: sy }} className="relative my-6 h-[380px] w-full max-w-[640px] md:my-8 md:h-[420px]">
-        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 640 420" aria-hidden>
-          <path d="M210 90 L330 200 L230 310" stroke="#D7CBF5" strokeWidth="44" strokeLinecap="round" fill="none" opacity="0.7" />
+      {/* Connected 3D Molecule Stage with interactive cursor spring physics */}
+      <motion.div style={{ y, x: sx, translateY: sy }} className="relative my-4 h-[420px] w-full max-w-[640px] md:my-6 md:h-[480px]">
+        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 640 480" aria-hidden>
+          <path d="M210 110 L330 230 L230 360" stroke="#D7CBF5" strokeWidth="44" strokeLinecap="round" fill="none" opacity="0.75" />
         </svg>
         {hero.bubbles.map((b, i) => (
           <motion.div
             key={b.title}
-            className={`absolute ${positions[i]} flex size-36 flex-col items-center justify-center rounded-full glass-bubble p-4 text-center shadow-lg md:size-44`}
+            className={`absolute ${positions[i]} flex size-36 flex-col items-center justify-center rounded-full glass-bubble p-4 text-center shadow-lg md:size-48`}
             initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1, y: [0, -10, 0] }}
-            transition={{ opacity: { duration: 0.9, ease, delay: 0.2 + i * 0.15 }, scale: { duration: 0.9, ease, delay: 0.2 + i * 0.15 }, y: { duration: 5 + i, repeat: Infinity, ease: 'easeInOut' } }}
+            animate={{ opacity: 1, scale: 1, y: [0, -12, 0] }}
+            transition={{ opacity: { duration: 0.9, ease, delay: 0.2 + i * 0.15 }, scale: { duration: 0.9, ease, delay: 0.2 + i * 0.15 }, y: { duration: 6 + i, repeat: Infinity, ease: 'easeInOut' } }}
           >
-            <span className="font-display text-base font-semibold leading-tight text-cobalt md:text-lg">{b.title}</span>
+            <span className="font-display text-lg font-semibold leading-tight text-cobalt md:text-xl">{b.title}</span>
             <span className="eyebrow mt-1.5 text-[0.55rem] text-ink/50">{b.sub}</span>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Scroll indicator positioned lower down with ample breathing space */}
-      <div className="relative z-10 mt-auto flex flex-col items-center gap-2 pt-4 text-ink/60">
-        <span className="eyebrow text-[0.62rem] tracking-[0.2em] font-semibold">Scroll</span>
-        <span className="h-8 w-px animate-float bg-cobalt/60" />
+      {/* Interactive floating scroll indicator with smooth gentle bobbing loop */}
+      <div className="relative z-10 mt-auto flex flex-col items-center gap-2 pt-6 text-ink/65">
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+          className="flex flex-col items-center gap-2"
+        >
+          <span className="eyebrow text-[0.62rem] font-semibold tracking-[0.22em] text-ink/75">SCROLL</span>
+          <span className="h-9 w-px bg-cobalt/60" />
+        </motion.div>
       </div>
     </section>
   );
@@ -258,41 +269,7 @@ function MoleculeStory() {
   );
 }
 
-/* 5. TRANSPARENCY */
-function Icon({ name }: { name: string }) {
-  return name === 'factory' ? (
-    <svg viewBox="0 0 48 48" className="size-12 text-accent" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M6 42V22l10 6v-6l10 6v-6l10 6V8h6v34z" /><path d="M14 36h4M24 36h4M34 36h4" /></svg>
-  ) : (
-    <svg viewBox="0 0 48 48" className="size-12 text-accent" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M18 6h12M20 6v14L9 38a3 3 0 0 0 3 4h24a3 3 0 0 0 3-4L28 20V6" /><path d="M14 30h20" /></svg>
-  );
-}
-
-function Transparency() {
-  return (
-    <section className="relative overflow-hidden bg-transparency text-ivory">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-16 md:grid-cols-2 md:px-10 md:py-24">
-        <div>
-          <p className="eyebrow text-accent font-bold tracking-[0.14em]">{transparency.eyebrow}</p>
-          <Lines lines={[transparency.headline]} className="mt-5 text-4xl font-medium md:text-6xl font-display" />
-          <p className="mt-5 text-ivory/75">{transparency.line}</p>
-        </div>
-        <div className="space-y-6">
-          {transparency.cards.map((c, i) => (
-            <Reveal key={c.title} delay={i * 0.1}>
-              <div className="glass-dark rounded-[32px] p-8 md:p-10">
-                <Icon name={c.icon} />
-                <h3 className="mt-8 text-2xl font-medium font-display">{c.title}</h3>
-                <p className="mt-2 text-sm text-ivory/65">{c.body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* 6. SOURCING */
+/* 5. SOURCING */
 function QR() {
   const cells = Array.from({ length: 81 }, (_, i) => ((i * 37) % 7) % 2 === 0 || [0, 1, 2, 9, 11, 18, 19, 20, 6, 7, 8, 15, 17, 24, 25, 26, 54, 55, 56, 63, 65, 72, 73, 74].includes(i));
   return (
@@ -354,7 +331,7 @@ export function LabTable() {
   );
 }
 
-/* 7. CONSULT */
+/* 6. CONSULT */
 function Consult() {
   return (
     <section id="consult" className="relative overflow-hidden bg-lilac px-5 py-24 text-center md:py-32">
