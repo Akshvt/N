@@ -63,8 +63,20 @@ function Hero() {
       <motion.div style={{ y: ringY }} className="pointer-events-none absolute -right-10 bottom-24 w-48 rotate-180 text-cobalt/25 md:w-72"><Ring className="animate-float" /></motion.div>
 
       <div className="flex flex-col items-center text-center">
-        <p className="eyebrow text-cobalt font-bold tracking-[0.14em]">{hero.eyebrow}</p>
-        <Lines as="h1" lines={hero.headline} className="mt-4 text-center text-4xl font-medium leading-[1.02] text-ink md:text-7xl font-display" />
+        <motion.p
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.08 }}
+          className="eyebrow text-cobalt font-bold tracking-[0.14em]"
+        >
+          {hero.eyebrow}
+        </motion.p>
+        <Lines
+          as="h1"
+          immediate
+          lines={hero.headline}
+          className="mt-4 text-center text-4xl font-medium leading-[1.02] text-ink md:text-7xl font-display"
+        />
       </div>
 
       {/* Connected 3D Molecule Stage with interactive cursor spring physics */}

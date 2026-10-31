@@ -3,18 +3,36 @@ import type { ReactNode } from "react";
 
 export const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Lines({ lines, className = "", as = "h2" }: { lines: string[]; className?: string; as?: "h1" | "h2" }) {
+export function Lines({
+  lines,
+  className = "",
+  as = "h2",
+  immediate,
+}: {
+  lines: string[];
+  className?: string;
+  as?: "h1" | "h2";
+  immediate?: boolean;
+}) {
   const Tag = as;
+  const shouldAnimateImmediately = immediate ?? as === "h1";
+
   return (
     <Tag className={className}>
       {lines.map((l, i) => (
         <span key={i} className="block overflow-hidden pb-[0.08em]">
           <motion.span
             className="block"
-            initial={{ y: "105%" }}
-            whileInView={{ y: 0 }}
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ duration: 0.9, ease, delay: i * 0.1 }}
+            initial={{ y: "115%", opacity: 0 }}
+            {...(shouldAnimateImmediately
+              ? { animate: { y: 0, opacity: 1 } }
+              : { whileInView: { y: 0, opacity: 1 }, viewport: { once: true, amount: 0.05 } }
+            )}
+            transition={{
+              duration: 0.95,
+              ease: [0.16, 1, 0.3, 1],
+              delay: (shouldAnimateImmediately ? 0.15 : 0) + i * 0.15,
+            }}
           >
             {l}
           </motion.span>
@@ -30,7 +48,7 @@ export function Reveal({ children, className = "", delay = 0 }: { children: Reac
       className={className}
       initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.8, ease, delay }}
     >
       {children}
