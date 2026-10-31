@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, Search, ShoppingBag, User, X } from 'lucide-react';
 import { Logo } from '@/components/ui/Logo';
 
@@ -42,25 +43,38 @@ export function Navbar() {
           </button>
 
           <ul className="hidden items-center gap-8 lg:gap-10 md:flex">
-            {links.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="group relative py-2 text-[15px] font-medium text-ink transition-colors hover:text-cobalt"
-                >
-                  {link.label}
-                  <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-cobalt transition-transform duration-500 ease-editorial group-hover:scale-x-100" />
-                </a>
-              </li>
-            ))}
+            {links.map((link) => {
+              const isInternal = link.href.startsWith('/') && !link.href.includes('#');
+              return (
+                <li key={link.label}>
+                  {isInternal ? (
+                    <Link
+                      to={link.href}
+                      className="group relative py-2 text-[15px] font-medium text-ink transition-colors hover:text-cobalt"
+                    >
+                      {link.label}
+                      <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-cobalt transition-transform duration-500 ease-editorial group-hover:scale-x-100" />
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="group relative py-2 text-[15px] font-medium text-ink transition-colors hover:text-cobalt"
+                    >
+                      {link.label}
+                      <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-cobalt transition-transform duration-500 ease-editorial group-hover:scale-x-100" />
+                    </a>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
 
         {/* Center: Brand Logo */}
         <div className="flex items-center justify-center md:flex-initial">
-          <a href="/" aria-label="By Namhya home" className="flex items-center">
+          <Link to="/" aria-label="By Namhya home" className="flex items-center">
             <Logo />
-          </a>
+          </Link>
         </div>
 
         {/* Right: Actions */}
@@ -80,17 +94,30 @@ export function Navbar() {
       {menuOpen && (
         <div className="border-t border-silver/60 bg-ivory md:hidden">
           <ul className="mx-auto flex max-w-content flex-col px-6 py-4">
-            {links.map((link) => (
-              <li key={link.label} className="border-b border-silver/60 last:border-b-0">
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="block py-5 font-display text-[28px] font-medium tracking-[-0.02em] text-ink"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {links.map((link) => {
+              const isInternal = link.href.startsWith('/') && !link.href.includes('#');
+              return (
+                <li key={link.label} className="border-b border-silver/60 last:border-b-0">
+                  {isInternal ? (
+                    <Link
+                      to={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block py-5 font-display text-[28px] font-medium tracking-[-0.02em] text-ink"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block py-5 font-display text-[28px] font-medium tracking-[-0.02em] text-ink"
+                    >
+                      {link.label}
+                    </a>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 const columns = [
@@ -77,16 +78,28 @@ export function Footer() {
                   {column.title}
                 </p>
                 <ul className="mt-6 space-y-4">
-                  {column.links.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                  {column.links.map((link) => {
+                    const isInternal = link.href.startsWith('/') && !link.href.includes('#');
+                    return (
+                      <li key={link.label}>
+                        {isInternal ? (
+                          <Link
+                            to={link.href}
+                            className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
+                          >
+                            {link.label}
+                          </Link>
+                        ) : (
+                          <a
+                            href={link.href}
+                            className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
+                          >
+                            {link.label}
+                          </a>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}

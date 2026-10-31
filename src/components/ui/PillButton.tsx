@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 type Variant = 'primary' | 'secondary';
 
@@ -41,6 +42,13 @@ export function PillButton({ children, variant = 'primary', href, onClick, class
   );
 
   if (href) {
+    if (href.startsWith('/') && !href.includes('#')) {
+      return (
+        <Link to={href} className={classes}>
+          {content}
+        </Link>
+      );
+    }
     return (
       <a href={href} className={classes}>
         {content}
