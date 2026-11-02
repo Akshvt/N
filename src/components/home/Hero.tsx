@@ -8,7 +8,7 @@ const [nourish, strength] = products;
 
 export function Hero() {
   return (
-    <section id="top" className="relative flex min-h-screen items-center overflow-hidden pb-24 pt-[176px] md:pb-32">
+    <section id="top" className="relative flex min-h-screen items-center overflow-hidden pb-8 sm:pb-12 md:pb-20 pt-[140px] sm:pt-[160px] md:pt-[176px]">
       <div className="mx-auto grid w-full max-w-content items-center gap-16 px-6 md:px-10 lg:grid-cols-12">
         <div className="lg:col-span-7 flex flex-col items-center text-center">
           <Reveal className="text-center">
