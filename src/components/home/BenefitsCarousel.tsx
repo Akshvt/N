@@ -92,7 +92,7 @@ function DesktopBenefits() {
 
 function MobileBenefits() {
   return (
-    <div className="py-20 md:hidden">
+    <div className="pt-20 pb-14 md:hidden">
       <div className="px-6">
         <p className="eyebrow">What it helps with</p>
         <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em]">
