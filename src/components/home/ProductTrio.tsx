@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Check } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/home/SectionHeading';
@@ -6,14 +6,95 @@ import { ProductRender } from '@/components/home/ProductRender';
 import { products, type Product, type ProductFormat } from '@/components/home/productData';
 
 export function ProductTrio() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const isInteracting = useRef(false);
+  const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const pauseAuto = () => {
+    isInteracting.current = true;
+    if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    pauseTimer.current = setTimeout(() => {
+      isInteracting.current = false;
+    }, 5000);
+  };
+
+  const handleScroll = () => {
+    const el = containerRef.current;
+    if (!el || !el.children.length) return;
+    const first = el.children[0] as HTMLElement;
+    const second = el.children[1] as HTMLElement | undefined;
+    const step = second ? second.offsetLeft - first.offsetLeft : first.offsetWidth;
+    if (step <= 0) return;
+    const idx = Math.max(0, Math.min(products.length - 1, Math.round(el.scrollLeft / step)));
+    setActiveIdx(idx);
+  };
+
+  const scrollTo = (idx: number) => {
+    const el = containerRef.current;
+    if (!el || !el.children[idx]) return;
+    pauseAuto();
+    const target = el.children[idx] as HTMLElement;
+    const first = el.children[0] as HTMLElement;
+    const left = target.offsetLeft - first.offsetLeft;
+    el.scrollTo({ left, behavior: 'smooth' });
+    setActiveIdx(idx);
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || window.innerWidth >= 768) return;
+    const timer = setInterval(() => {
+      if (isInteracting.current) return;
+      const el = containerRef.current;
+      if (!el || !el.children.length) return;
+      setActiveIdx((prev) => {
+        const next = (prev + 1) % products.length;
+        const target = el.children[next] as HTMLElement;
+        const first = el.children[0] as HTMLElement;
+        if (target && first) {
+          const left = target.offsetLeft - first.offsetLeft;
+          el.scrollTo({ left, behavior: 'smooth' });
+        }
+        return next;
+      });
+    }, 4000);
+
+    return () => {
+      clearInterval(timer);
+      if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    };
+  }, []);
+
   return (
     <section id="shop" className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">
       <SectionHeading eyebrow="The daily formulas" title="Three formulas. One daily routine." />
-      <div className="mt-16 grid gap-8 md:grid-cols-3">
+      <div
+        ref={containerRef}
+        onScroll={handleScroll}
+        onTouchStart={pauseAuto}
+        className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:pt-0"
+      >
         {products.map((product, index) => (
-          <Reveal key={product.id} delay={index * 120} className="h-full">
-            <ProductCard product={product} />
-          </Reveal>
+          <div
+            key={product.id}
+            className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none h-full flex flex-col"
+          >
+            <Reveal delay={index * 120} className="h-full flex flex-col flex-1">
+              <ProductCard product={product} />
+            </Reveal>
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+        {products.map((product, index) => (
+          <button
+            key={product.id}
+            onClick={() => scrollTo(index)}
+            aria-label={`Go to product ${index + 1}: ${product.name}`}
+            className={`h-1.5 rounded-full transition-all duration-500 ease-editorial ${
+              index === activeIdx ? 'w-8 bg-cobalt' : 'w-2 bg-ink/20 hover:bg-ink/40'
+            }`}
+          />
         ))}
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { BookOpen, Check, Droplets, Eye } from 'lucide-react';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
@@ -31,6 +32,65 @@ export function SplitSticky() {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
   const active = Math.min(Math.round(progress * (steps.length - 1)), steps.length - 1);
 
+  const mobileRef = useRef<HTMLDivElement>(null);
+  const [mobileActive, setMobileActive] = useState(0);
+  const isInteracting = useRef(false);
+  const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const pauseAuto = () => {
+    isInteracting.current = true;
+    if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    pauseTimer.current = setTimeout(() => {
+      isInteracting.current = false;
+    }, 5000);
+  };
+
+  const handleMobileScroll = () => {
+    const el = mobileRef.current;
+    if (!el || !el.children.length) return;
+    const first = el.children[0] as HTMLElement;
+    const second = el.children[1] as HTMLElement | undefined;
+    const step = second ? second.offsetLeft - first.offsetLeft : first.offsetWidth;
+    if (step <= 0) return;
+    const idx = Math.max(0, Math.min(steps.length - 1, Math.round(el.scrollLeft / step)));
+    setMobileActive(idx);
+  };
+
+  const scrollToStep = (idx: number) => {
+    const el = mobileRef.current;
+    if (!el || !el.children[idx]) return;
+    pauseAuto();
+    const target = el.children[idx] as HTMLElement;
+    const first = el.children[0] as HTMLElement;
+    const left = target.offsetLeft - first.offsetLeft;
+    el.scrollTo({ left, behavior: 'smooth' });
+    setMobileActive(idx);
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || window.innerWidth >= 768) return;
+    const timer = setInterval(() => {
+      if (isInteracting.current) return;
+      const el = mobileRef.current;
+      if (!el || !el.children.length) return;
+      setMobileActive((prev) => {
+        const next = (prev + 1) % steps.length;
+        const target = el.children[next] as HTMLElement;
+        const first = el.children[0] as HTMLElement;
+        if (target && first) {
+          const left = target.offsetLeft - first.offsetLeft;
+          el.scrollTo({ left, behavior: 'smooth' });
+        }
+        return next;
+      });
+    }, 4000);
+
+    return () => {
+      clearInterval(timer);
+      if (pauseTimer.current) clearTimeout(pauseTimer.current);
+    };
+  }, []);
+
   return (
     <section className="mx-auto max-w-content px-6 md:px-10">
       <div ref={ref} className="grid gap-12 py-16 md:grid-cols-2 md:items-start md:gap-24 md:py-0">
@@ -57,40 +117,94 @@ export function SplitSticky() {
           </div>
         </div>
 
-        {/* Right Column: Preserving Original Scroll Rhythm with 70% Calibrated Gap */}
-        <div className="flex flex-col gap-6 md:gap-0">
-          {steps.map((step, index) => (
-            <StepCard key={step.title} step={step} index={index} active={index === active} />
-          ))}
+        {/* Right Column: Mobile Swipeable Auto-Carousel / Desktop Vertical Scroll */}
+        <div>
+          <div
+            ref={mobileRef}
+            onScroll={handleMobileScroll}
+            onTouchStart={pauseAuto}
+            className="-mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:flex-col md:gap-0 md:overflow-visible md:pb-0 md:pt-0"
+          >
+            {steps.map((step, index) => (
+              <div
+                key={step.title}
+                className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none flex flex-col h-full"
+              >
+                <StepCard
+                  step={step}
+                  index={index}
+                  activeDesktop={index === active}
+                  activeMobile={index === mobileActive}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile pagination indicator pills */}
+          <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+            {steps.map((step, index) => (
+              <button
+                key={step.title}
+                onClick={() => scrollToStep(index)}
+                aria-label={`Go to slide ${index + 1}: ${step.title}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ease-editorial ${
+                  index === mobileActive ? 'w-8 bg-cobalt' : 'w-2 bg-ink/20 hover:bg-ink/40'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function StepCard({ step, index, active }: { step: Step; index: number; active: boolean }) {
+function StepCard({
+  step,
+  index,
+  activeDesktop,
+  activeMobile,
+}: {
+  step: Step;
+  index: number;
+  activeDesktop: boolean;
+  activeMobile: boolean;
+}) {
   const Icon = step.icon;
 
   return (
-    <div className="md:flex md:min-h-[70vh] md:items-center">
+    <div className="md:flex md:min-h-[70vh] md:items-center h-full">
       <div
-        className={`w-full rounded-card border bg-white p-6 sm:p-8 transition-all duration-700 ease-editorial md:p-12 ${
-          active
+        className={`w-full h-full flex flex-col justify-between rounded-card border bg-white p-6 sm:p-8 transition-all duration-700 ease-editorial md:p-12 min-h-[380px] md:min-h-0 ${
+          activeMobile
             ? 'border-cobalt/40 shadow-xl opacity-100 scale-[1.01]'
-            : 'border-silver/60 md:opacity-35 md:hover:opacity-70 md:hover:shadow-md'
+            : 'border-silver/60 opacity-80'
+        } ${
+          activeDesktop
+            ? 'md:border-cobalt/40 md:shadow-xl md:opacity-100 md:scale-[1.01]'
+            : 'md:border-silver/60 md:opacity-35 md:hover:opacity-70 md:hover:shadow-md md:scale-100'
         }`}
       >
-        <div className="flex items-center justify-between">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cobalt text-accent shadow-sm">
-            <Icon size={24} strokeWidth={2} aria-hidden="true" />
-          </span>
-          <span className="font-mono text-[14px] font-bold text-cobalt">0{index + 1}</span>
+        <div>
+          <div className="flex items-center justify-between">
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-cobalt text-accent shadow-sm">
+              <Icon size={24} strokeWidth={2} aria-hidden="true" />
+            </span>
+            <span className="font-mono text-[14px] font-bold text-cobalt">0{index + 1}</span>
+          </div>
+          <h3 className="mt-8 font-display text-[30px] font-medium leading-[36px] tracking-[-0.02em] text-ink md:text-[34px] md:leading-[40px]">
+            {step.title}
+          </h3>
+          <p className="mt-3 max-w-md text-[17px] leading-[28px] text-ink-muted">{step.line}</p>
         </div>
-        <h3 className="mt-8 font-display text-[30px] font-medium leading-[36px] tracking-[-0.02em] text-ink md:text-[34px] md:leading-[40px]">
-          {step.title}
-        </h3>
-        <p className="mt-3 max-w-md text-[17px] leading-[28px] text-ink-muted">{step.line}</p>
-        <StepGraphic index={index} active={active} />
+        <div className="mt-8">
+          <div className="md:hidden">
+            <StepGraphic index={index} active={activeMobile} />
+          </div>
+          <div className="hidden md:block">
+            <StepGraphic index={index} active={activeDesktop} />
+          </div>
+        </div>
       </div>
     </div>
   );
