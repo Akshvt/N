@@ -41,7 +41,7 @@ export function Testimonials() {
   const animationClass = direction === 'normal' ? 'animate-marquee' : 'animate-marquee-reverse';
 
   return (
-    <section className="overflow-hidden pt-[50px] pb-[74px] md:pt-24 md:pb-32">
+    <section className="overflow-hidden pt-[clamp(3.125rem,1.9rem+5.5vw,6rem)] pb-[clamp(4.625rem,3.18rem+6.4vw,8rem)]">
       {/* Header */}
       <div className="mx-auto flex max-w-content items-end justify-between gap-6 px-6 md:px-10">
         <Reveal>
@@ -81,7 +81,7 @@ export function Testimonials() {
       </div>
 
       {/* Auto-scrolling zigzag floating tracks */}
-      <div className="marquee-wrapper mt-6 sm:mt-8 flex w-full overflow-hidden py-6 md:py-10">
+      <div className="marquee-wrapper mt-[clamp(1.5rem,1.1rem+1.8vw,2.5rem)] flex w-full overflow-hidden py-[clamp(1.5rem,1rem+2vw,2.5rem)]">
         {/* Track 1 */}
         <div className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}>
           {reviews.map((review, index) => {

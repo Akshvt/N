@@ -13,7 +13,7 @@ const rows: { label: string; labelOurs: boolean; typical: boolean }[] = [
 
 export function ComparisonTable() {
   return (
-    <section className="mx-auto max-w-content px-6 pt-[66px] pb-[50px] md:px-10 md:pt-32 md:pb-24">
+    <section className="mx-auto max-w-content px-6 pt-[clamp(4.125rem,2.46rem+7.4vw,8rem)] pb-[clamp(3.125rem,1.9rem+5.5vw,6rem)] md:px-10">
       <SectionHeading eyebrow="Compare" title="Not all supplements are built the same." />
 
       <Reveal delay={150}>
