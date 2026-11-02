@@ -36,6 +36,7 @@ export function SplitSticky() {
   const [mobileActive, setMobileActive] = useState(0);
   const isInteracting = useRef(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafId = useRef<number | null>(null);
 
   const pauseAuto = () => {
     isInteracting.current = true;
@@ -45,15 +46,32 @@ export function SplitSticky() {
     }, 5000);
   };
 
+  const getTargetLeft = (el: HTMLElement, target: HTMLElement) => {
+    const centerOffset = (el.clientWidth - target.clientWidth) / 2;
+    const idealLeft = target.offsetLeft - centerOffset;
+    return Math.max(0, Math.min(el.scrollWidth - el.clientWidth, idealLeft));
+  };
+
   const handleMobileScroll = () => {
-    const el = mobileRef.current;
-    if (!el || !el.children.length) return;
-    const first = el.children[0] as HTMLElement;
-    const second = el.children[1] as HTMLElement | undefined;
-    const step = second ? second.offsetLeft - first.offsetLeft : first.offsetWidth;
-    if (step <= 0) return;
-    const idx = Math.max(0, Math.min(steps.length - 1, Math.round(el.scrollLeft / step)));
-    setMobileActive(idx);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    rafId.current = requestAnimationFrame(() => {
+      const el = mobileRef.current;
+      if (!el || !el.children.length) return;
+      const containerCenter = el.scrollLeft + el.clientWidth / 2;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      for (let i = 0; i < steps.length; i++) {
+        const child = el.children[i] as HTMLElement | undefined;
+        if (!child) continue;
+        const childCenter = child.offsetLeft + child.clientWidth / 2;
+        const diff = Math.abs(containerCenter - childCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      }
+      setMobileActive((current) => (current !== closestIdx ? closestIdx : current));
+    });
   };
 
   const scrollToStep = (idx: number) => {
@@ -61,8 +79,7 @@ export function SplitSticky() {
     if (!el || !el.children[idx]) return;
     pauseAuto();
     const target = el.children[idx] as HTMLElement;
-    const first = el.children[0] as HTMLElement;
-    const left = target.offsetLeft - first.offsetLeft;
+    const left = getTargetLeft(el, target);
     el.scrollTo({ left, behavior: 'smooth' });
     setMobileActive(idx);
   };
@@ -75,10 +92,9 @@ export function SplitSticky() {
       if (!el || !el.children.length) return;
       setMobileActive((prev) => {
         const next = (prev + 1) % steps.length;
-        const target = el.children[next] as HTMLElement;
-        const first = el.children[0] as HTMLElement;
-        if (target && first) {
-          const left = target.offsetLeft - first.offsetLeft;
+        const target = el.children[next] as HTMLElement | undefined;
+        if (target) {
+          const left = getTargetLeft(el, target);
           el.scrollTo({ left, behavior: 'smooth' });
         }
         return next;
@@ -88,6 +104,7 @@ export function SplitSticky() {
     return () => {
       clearInterval(timer);
       if (pauseTimer.current) clearTimeout(pauseTimer.current);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
     };
   }, []);
 
@@ -123,12 +140,12 @@ export function SplitSticky() {
             ref={mobileRef}
             onScroll={handleMobileScroll}
             onTouchStart={pauseAuto}
-            className="-mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:flex-col md:gap-0 md:overflow-visible md:pb-0 md:pt-0"
+            className="-mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:flex-col md:gap-0 md:overflow-visible md:pb-0 md:pt-0"
           >
             {steps.map((step, index) => (
               <div
                 key={step.title}
-                className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none flex flex-col h-full"
+                className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none flex flex-col h-full will-change-transform"
               >
                 <StepCard
                   step={step}
@@ -175,10 +192,10 @@ function StepCard({
   return (
     <div className="md:flex md:min-h-[70vh] md:items-center h-full">
       <div
-        className={`w-full h-full flex flex-col justify-between rounded-card border bg-white p-6 sm:p-8 transition-all duration-700 ease-editorial md:p-12 min-h-[380px] md:min-h-0 ${
+        className={`w-full h-full flex flex-col justify-between rounded-card border bg-white p-6 sm:p-8 transition-[border-color,box-shadow] duration-500 ease-editorial md:p-12 min-h-[380px] md:min-h-0 ${
           activeMobile
-            ? 'border-cobalt/40 shadow-xl opacity-100 scale-[1.01]'
-            : 'border-silver/60 opacity-80'
+            ? 'border-cobalt/40 shadow-xl'
+            : 'border-silver/60'
         } ${
           activeDesktop
             ? 'md:border-cobalt/40 md:shadow-xl md:opacity-100 md:scale-[1.01]'

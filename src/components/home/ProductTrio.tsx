@@ -10,6 +10,7 @@ export function ProductTrio() {
   const [activeIdx, setActiveIdx] = useState(0);
   const isInteracting = useRef(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const rafId = useRef<number | null>(null);
 
   const pauseAuto = () => {
     isInteracting.current = true;
@@ -19,15 +20,32 @@ export function ProductTrio() {
     }, 5000);
   };
 
+  const getTargetLeft = (el: HTMLElement, target: HTMLElement) => {
+    const centerOffset = (el.clientWidth - target.clientWidth) / 2;
+    const idealLeft = target.offsetLeft - centerOffset;
+    return Math.max(0, Math.min(el.scrollWidth - el.clientWidth, idealLeft));
+  };
+
   const handleScroll = () => {
-    const el = containerRef.current;
-    if (!el || !el.children.length) return;
-    const first = el.children[0] as HTMLElement;
-    const second = el.children[1] as HTMLElement | undefined;
-    const step = second ? second.offsetLeft - first.offsetLeft : first.offsetWidth;
-    if (step <= 0) return;
-    const idx = Math.max(0, Math.min(products.length - 1, Math.round(el.scrollLeft / step)));
-    setActiveIdx(idx);
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    rafId.current = requestAnimationFrame(() => {
+      const el = containerRef.current;
+      if (!el || !el.children.length) return;
+      const containerCenter = el.scrollLeft + el.clientWidth / 2;
+      let closestIdx = 0;
+      let minDiff = Infinity;
+      for (let i = 0; i < products.length; i++) {
+        const child = el.children[i] as HTMLElement | undefined;
+        if (!child) continue;
+        const childCenter = child.offsetLeft + child.clientWidth / 2;
+        const diff = Math.abs(containerCenter - childCenter);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIdx = i;
+        }
+      }
+      setActiveIdx((current) => (current !== closestIdx ? closestIdx : current));
+    });
   };
 
   const scrollTo = (idx: number) => {
@@ -35,8 +53,7 @@ export function ProductTrio() {
     if (!el || !el.children[idx]) return;
     pauseAuto();
     const target = el.children[idx] as HTMLElement;
-    const first = el.children[0] as HTMLElement;
-    const left = target.offsetLeft - first.offsetLeft;
+    const left = getTargetLeft(el, target);
     el.scrollTo({ left, behavior: 'smooth' });
     setActiveIdx(idx);
   };
@@ -49,10 +66,9 @@ export function ProductTrio() {
       if (!el || !el.children.length) return;
       setActiveIdx((prev) => {
         const next = (prev + 1) % products.length;
-        const target = el.children[next] as HTMLElement;
-        const first = el.children[0] as HTMLElement;
-        if (target && first) {
-          const left = target.offsetLeft - first.offsetLeft;
+        const target = el.children[next] as HTMLElement | undefined;
+        if (target) {
+          const left = getTargetLeft(el, target);
           el.scrollTo({ left, behavior: 'smooth' });
         }
         return next;
@@ -62,6 +78,7 @@ export function ProductTrio() {
     return () => {
       clearInterval(timer);
       if (pauseTimer.current) clearTimeout(pauseTimer.current);
+      if (rafId.current) cancelAnimationFrame(rafId.current);
     };
   }, []);
 
@@ -72,12 +89,12 @@ export function ProductTrio() {
         ref={containerRef}
         onScroll={handleScroll}
         onTouchStart={pauseAuto}
-        className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:pt-0"
+        className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:pt-0"
       >
         {products.map((product, index) => (
           <div
             key={product.id}
-            className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none h-full flex flex-col"
+            className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none h-full flex flex-col will-change-transform"
           >
             <Reveal delay={index * 120} className="h-full flex flex-col flex-1">
               <ProductCard product={product} />
