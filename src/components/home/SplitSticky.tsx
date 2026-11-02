@@ -81,7 +81,7 @@ export function SplitSticky() {
             {steps.map((step, index) => (
               <div
                 key={step.title}
-                className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none flex flex-col h-full will-change-transform"
+                className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none flex flex-col h-full"
               >
                 <StepCard
                   step={step}

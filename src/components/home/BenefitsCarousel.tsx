@@ -92,7 +92,7 @@ function DesktopBenefits() {
 }
 
 function MobileBenefits() {
-  const { containerRef, activeIdx, scrollTo, handleScroll, pauseAuto } = useMobileCarousel({
+  const { containerRef, handleScroll, pauseAuto } = useMobileCarousel({
     count: benefits.length,
     autoScroll: true,
     interval: 4000,
@@ -115,7 +115,7 @@ function MobileBenefits() {
         {benefits.map((benefit) => (
           <article
             key={benefit.name}
-            className="w-[82%] shrink-0 snap-center rounded-card bg-white p-8 will-change-transform"
+            className="w-[82%] shrink-0 snap-center rounded-card bg-white p-8"
           >
             <p className="eyebrow">{benefit.name}</p>
             <h3 className="mt-4 font-display text-[32px] font-medium leading-[38px] tracking-[-0.02em]">
@@ -123,19 +123,6 @@ function MobileBenefits() {
             </h3>
             <p className="mt-4 text-[15px] leading-[24px] text-ink-muted">{benefit.body}</p>
           </article>
-        ))}
-      </div>
-      {/* Mobile indicator dots */}
-      <div className="mt-6 flex items-center justify-center gap-2">
-        {benefits.map((benefit, index) => (
-          <button
-            key={benefit.name}
-            onClick={() => scrollTo(index)}
-            aria-label={`Go to benefit ${index + 1}: ${benefit.name}`}
-            className={`h-1.5 rounded-full transition-all duration-500 ease-editorial ${
-              index === activeIdx ? 'w-8 bg-ink' : 'w-2 bg-ink/20 hover:bg-ink/40'
-            }`}
-          />
         ))}
       </div>
     </div>

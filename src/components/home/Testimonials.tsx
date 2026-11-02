@@ -91,7 +91,7 @@ export function Testimonials() {
             return (
               <div
                 key={`t1-${review.name}`}
-                className={`transition-transform duration-500 will-change-transform ${
+                className={`transition-transform duration-500 ${
                   isZigzagOffset ? 'translate-y-8 md:translate-y-12' : 'translate-y-0'
                 }`}
               >
@@ -127,7 +127,7 @@ export function Testimonials() {
             return (
               <div
                 key={`t2-${review.name}`}
-                className={`transition-transform duration-500 will-change-transform ${
+                className={`transition-transform duration-500 ${
                   isZigzagOffset ? 'translate-y-8 md:translate-y-12' : 'translate-y-0'
                 }`}
               >

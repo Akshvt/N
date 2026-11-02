@@ -24,7 +24,7 @@ export function ProductTrio() {
         {products.map((product, index) => (
           <div
             key={product.id}
-            className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none h-full flex flex-col will-change-transform"
+            className="w-[84%] sm:w-[72%] shrink-0 snap-center md:w-auto md:shrink md:snap-align-none h-full flex flex-col"
           >
             <Reveal delay={index * 120} className="h-full flex flex-col flex-1">
               <ProductCard product={product} />

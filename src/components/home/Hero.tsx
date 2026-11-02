@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import { ArrowRight, FlaskConical, Leaf } from 'lucide-react';
 import { PillButton } from '@/components/ui/PillButton';
 import { Reveal, RevealLines } from '@/components/motion/Reveal';
@@ -8,29 +7,6 @@ import { products } from '@/components/home/productData';
 const [nourish, strength] = products;
 
 export function Hero() {
-  const tubRef = useRef<HTMLDivElement>(null);
-  const sachetRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const y = window.scrollY;
-      if (tubRef.current) tubRef.current.style.transform = `translate3d(0, ${y * 0.12}px, 0)`;
-      if (sachetRef.current) sachetRef.current.style.transform = `translate3d(0, ${y * -0.18}px, 0)`;
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
-
   return (
     <section id="top" className="relative flex min-h-screen items-center overflow-hidden pb-24 pt-[176px] md:pb-32">
       <div className="mx-auto grid w-full max-w-content items-center gap-16 px-6 md:px-10 lg:grid-cols-12">
@@ -94,17 +70,13 @@ export function Hero() {
             className="absolute right-[4%] top-1/2 h-[300px] w-[300px] -translate-y-1/2 rounded-full bg-lilac md:h-[380px] md:w-[380px]"
           />
           <Reveal variant="image" delay={200} className="absolute right-[10%] top-[10%]">
-            <div ref={tubRef} className="will-change-transform">
-              <div className="animate-float-hero-tub will-change-transform">
-                <ProductRender product={nourish} format="tub" />
-              </div>
+            <div className="animate-float-hero-tub">
+              <ProductRender product={nourish} format="tub" />
             </div>
           </Reveal>
           <Reveal variant="image" delay={400} className="absolute bottom-[4%] left-[6%]">
-            <div ref={sachetRef} className="will-change-transform">
-              <div className="animate-float-hero-sachet will-change-transform">
-                <ProductRender product={strength} format="sachet" />
-              </div>
+            <div className="animate-float-hero-sachet">
+              <ProductRender product={strength} format="sachet" />
             </div>
           </Reveal>
         </div>

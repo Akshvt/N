@@ -55,7 +55,7 @@ export function ScienceTeaser() {
             <Reveal
               key={card.title}
               delay={index * 120}
-              className="flex w-[82%] sm:w-[70%] shrink-0 snap-center flex-col md:w-auto md:shrink md:snap-align-none h-full will-change-transform"
+              className="flex w-[82%] sm:w-[70%] shrink-0 snap-center flex-col md:w-auto md:shrink md:snap-align-none h-full"
             >
               <ScienceCard {...card} id={`science-card-${index}`} />
             </Reveal>

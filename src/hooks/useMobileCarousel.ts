@@ -14,9 +14,23 @@ export function useMobileCarousel({
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState(0);
   const isInteracting = useRef(false);
+  const isInView = useRef(false);
   const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const animRaf = useRef<number | null>(null);
   const scrollRaf = useRef<number | null>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isInView.current = entry?.isIntersecting ?? false;
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const getTargetLeft = (el: HTMLElement, target: HTMLElement) => {
     const centerOffset = (el.clientWidth - target.clientWidth) / 2;
@@ -108,7 +122,7 @@ export function useMobileCarousel({
     if (typeof window === 'undefined' || window.innerWidth >= 768) return;
 
     const timer = setInterval(() => {
-      if (isInteracting.current) return;
+      if (isInteracting.current || !isInView.current) return;
       const el = containerRef.current;
       if (!el || !el.children.length) return;
       setActiveIdx((prev) => {
@@ -137,3 +151,4 @@ export function useMobileCarousel({
     pauseAuto,
   };
 }
+
