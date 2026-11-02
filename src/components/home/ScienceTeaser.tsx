@@ -32,7 +32,7 @@ export function ScienceTeaser() {
 
   return (
     <section id="science" className="bg-lilac text-ink">
-      <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40 text-center">
+      <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">
         <Reveal className="text-center max-w-3xl mx-auto flex flex-col items-center">
           <p className="eyebrow text-cobalt font-bold tracking-[0.12em] uppercase">Our science</p>
           <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-ink md:text-[56px] md:leading-[60px]">
@@ -46,7 +46,7 @@ export function ScienceTeaser() {
         <div
           ref={containerRef}
           onScroll={handleScroll}
-          className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:pt-0"
+          className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:pt-0"
         >
           {cards.map((card, index) => (
             <Reveal
@@ -74,7 +74,7 @@ export function ScienceTeaser() {
         </div>
 
         <Reveal delay={200}>
-          <div className="mt-16">
+          <div className="mt-16 flex justify-center">
             <PillButton href="/science#lab-reports">View lab reports</PillButton>
           </div>
         </Reveal>

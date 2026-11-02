@@ -17,7 +17,7 @@ export function ProductTrio() {
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:pt-0"
+        className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:pt-0"
       >
         {products.map((product, index) => (
           <div

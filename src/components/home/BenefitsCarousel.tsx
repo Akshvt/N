@@ -107,7 +107,7 @@ function MobileBenefits() {
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth"
+        className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth"
       >
         {benefits.map((benefit) => (
           <article
