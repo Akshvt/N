@@ -38,9 +38,13 @@ export function ScienceTeaser() {
           </p>
         </Reveal>
 
-        <div className="mt-16 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:pt-0">
           {cards.map((card, index) => (
-            <Reveal key={card.title} delay={index * 120} className="h-full">
+            <Reveal
+              key={card.title}
+              delay={index * 120}
+              className="flex w-[82%] sm:w-[70%] shrink-0 snap-center flex-col md:w-auto md:shrink md:snap-align-none h-full"
+            >
               <ScienceCard {...card} id={`science-card-${index}`} />
             </Reveal>
           ))}
