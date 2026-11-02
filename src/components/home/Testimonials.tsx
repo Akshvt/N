@@ -41,7 +41,7 @@ export function Testimonials() {
   const animationClass = direction === 'normal' ? 'animate-marquee' : 'animate-marquee-reverse';
 
   return (
-    <section className="overflow-hidden pt-10 pb-16 md:pt-20 md:pb-28">
+    <section className="overflow-hidden pt-[50px] pb-[74px] md:pt-24 md:pb-32">
       {/* Header */}
       <div className="mx-auto flex max-w-content items-end justify-between gap-6 px-6 md:px-10">
         <Reveal>
