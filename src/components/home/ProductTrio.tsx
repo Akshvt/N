@@ -12,7 +12,7 @@ export function ProductTrio() {
   });
 
   return (
-    <section id="shop" className="mx-auto max-w-content px-6 pt-8 sm:pt-12 md:pt-24 pb-20 md:pb-40">
+    <section id="shop" className="mx-auto max-w-content px-6 pt-12 sm:pt-16 md:pt-28 pb-20 md:pb-40">
       <SectionHeading eyebrow="The daily formulas" title="Three formulas. One daily routine." />
       <div
         ref={containerRef}
