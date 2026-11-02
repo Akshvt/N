@@ -31,24 +31,24 @@ export function BrandStory() {
           {/* Left: Full-Height Editorial Moodboard Image Frame */}
           <div className="flex flex-col lg:col-span-6">
             <Reveal variant="image" className="h-full">
-              <div className="group relative flex h-full min-h-[480px] w-full flex-col overflow-hidden rounded-[32px] border border-silver/60 bg-white p-2 shadow-2xl transition-transform duration-700 hover:scale-[1.005] lg:min-h-full">
-                <div className="relative h-full min-h-[460px] w-full overflow-hidden rounded-[26px] bg-ink lg:min-h-full">
+              <div className="group relative flex h-full min-h-[360px] sm:min-h-[480px] w-full flex-col overflow-hidden rounded-[32px] border border-silver/60 bg-white p-2 shadow-2xl transition-transform duration-700 hover:scale-[1.005] lg:min-h-full">
+                <div className="relative h-full min-h-[340px] sm:min-h-[460px] w-full overflow-hidden rounded-[26px] bg-ink lg:min-h-full">
                   <img
                     src="/brand/namhya-moodboard.jpg"
                     alt="By Namhya brand moodboard and packaging renders"
                     className="h-full w-full object-cover transition-transform duration-1000 ease-editorial group-hover:scale-105"
                   />
                   {/* Floating Top Pill */}
-                  <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-ivory/90 px-4 py-1.5 backdrop-blur-md border border-silver/40">
+                  <div className="absolute left-3 top-3 sm:left-5 sm:top-5 flex items-center gap-2 rounded-full bg-ivory/90 px-3.5 py-1 sm:px-4 sm:py-1.5 backdrop-blur-md border border-silver/40">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                    <span className="font-mono text-[11px] font-semibold tracking-wider text-cobalt uppercase">
+                    <span className="font-mono text-[10px] sm:text-[11px] font-semibold tracking-wider text-cobalt uppercase">
                       Formula Moodboard
                     </span>
                   </div>
 
                   {/* Floating Bottom Badge */}
-                  <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between rounded-full bg-ivory/95 px-5 py-3 shadow-lg backdrop-blur-md border border-silver/40">
-                    <span className="flex items-center gap-2 text-[13px] font-semibold tracking-wide text-ink uppercase">
+                  <div className="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-5 sm:right-5 flex items-center justify-between rounded-full bg-ivory/95 px-3.5 py-2 sm:px-5 sm:py-3 shadow-lg backdrop-blur-md border border-silver/40">
+                    <span className="flex items-center gap-2 text-[11px] sm:text-[13px] font-semibold tracking-wide text-ink uppercase">
                       <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
                       Rooted in Ayurveda. Modern Science.
                     </span>

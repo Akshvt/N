@@ -74,10 +74,10 @@ function StepCard({ step, index, active }: { step: Step; index: number; active: 
   return (
     <div className="md:flex md:min-h-[70vh] md:items-center">
       <div
-        className={`w-full rounded-card border bg-white p-8 transition-all duration-700 ease-editorial md:p-12 ${
+        className={`w-full rounded-card border bg-white p-6 sm:p-8 transition-all duration-700 ease-editorial md:p-12 ${
           active
             ? 'border-cobalt/40 shadow-xl opacity-100 scale-[1.01]'
-            : 'border-silver/60 opacity-35 hover:opacity-70 hover:shadow-md'
+            : 'border-silver/60 md:opacity-35 md:hover:opacity-70 md:hover:shadow-md'
         }`}
       >
         <div className="flex items-center justify-between">

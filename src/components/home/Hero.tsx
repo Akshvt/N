@@ -39,7 +39,7 @@ export function Hero() {
             <p className="eyebrow">Science-backed daily formulas</p>
           </Reveal>
 
-          <h1 className="mt-6 font-display text-[52px] font-medium leading-[56px] tracking-[-0.02em] text-ink md:text-[88px] md:leading-[92px]">
+          <h1 className="mt-6 font-display text-[38px] font-medium leading-[42px] tracking-[-0.02em] text-ink min-[390px]:text-[50px] min-[390px]:leading-[54px] md:text-[88px] md:leading-[92px]">
             <RevealLines
               lines={[
                 'Nutrition for a',

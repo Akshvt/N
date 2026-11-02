@@ -18,10 +18,10 @@ export function ComparisonTable() {
 
       <Reveal delay={150}>
         <div className="mt-16">
-          <div className="grid grid-cols-[1fr_96px_96px] items-end border-b border-ink/15 pb-6 text-[13px] font-medium uppercase tracking-[0.08em] text-ink-muted md:grid-cols-[1fr_180px_180px]">
+          <div className="grid grid-cols-[1fr_72px_72px] items-end border-b border-ink/15 pb-6 text-[12px] sm:text-[13px] font-medium uppercase tracking-[0.08em] text-ink-muted sm:grid-cols-[1fr_96px_96px] md:grid-cols-[1fr_180px_180px]">
             <span />
             <span className="text-center text-ink">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-cobalt px-3.5 py-1.5 normal-case tracking-normal text-[14px] font-semibold text-white shadow-sm">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-cobalt px-2.5 py-1 text-[11px] sm:px-3.5 sm:py-1.5 sm:text-[14px] font-semibold text-white shadow-sm">
                 <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 By Namhya
               </span>
@@ -33,9 +33,9 @@ export function ComparisonTable() {
             {rows.map((row) => (
               <li
                 key={row.label}
-                className="grid grid-cols-[1fr_96px_96px] items-center border-b border-silver/70 py-6 md:grid-cols-[1fr_180px_180px]"
+                className="grid grid-cols-[1fr_72px_72px] items-center border-b border-silver/70 py-5 sm:py-6 sm:grid-cols-[1fr_96px_96px] md:grid-cols-[1fr_180px_180px]"
               >
-                <span className="pr-4 text-[17px] leading-[26px] text-ink">{row.label}</span>
+                <span className="pr-3 text-[14px] leading-[20px] sm:pr-4 sm:text-[17px] sm:leading-[26px] text-ink">{row.label}</span>
                 <span className="flex justify-center">
                   <CompareMark positive={row.labelOurs} ours />
                 </span>

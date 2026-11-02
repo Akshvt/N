@@ -13,20 +13,21 @@ const columns = [
     ],
   },
   {
-    title: 'Science',
+    title: 'Learn',
     links: [
-      { label: 'Science overview', href: '/science' },
+      { label: 'Science', href: '/science' },
       { label: 'Lab reports', href: '/lab-reports' },
-      { label: 'Our standards', href: '/science' },
-      { label: 'Batch lookup', href: '/lab-reports' },
+      { label: 'Quiz', href: '/#quiz' },
+      { label: 'Journal', href: '#' },
     ],
   },
   {
     title: 'Company',
     links: [
       { label: 'About', href: '/#about' },
+      { label: 'Contact', href: '/#faq' },
       { label: 'Careers', href: '#' },
-      { label: 'Contact', href: '#' },
+      { label: 'Stockists', href: '#' },
     ],
   },
 ];
@@ -45,7 +46,7 @@ export function Footer() {
   };
 
   return (
-    <footer id="about" className="bg-lilac text-ink">
+    <footer id="about" className="bg-lilac text-ink overflow-hidden">
       <div className="mx-auto max-w-content px-6 pb-10 pt-20 md:px-10 md:pt-32">
         <div className="grid gap-16 md:grid-cols-12">
           {/* Brand Logo & Tagline */}
@@ -71,13 +72,13 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="grid grid-cols-2 gap-10 md:col-span-4 md:col-start-7 md:grid-cols-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-6 md:col-span-5 md:col-start-7 md:gap-10">
             {columns.map((column) => (
-              <div key={column.title}>
-                <p className="eyebrow text-cobalt font-bold tracking-[0.14em] uppercase text-[12px]">
+              <div key={column.title} className="min-w-0">
+                <p className="eyebrow text-cobalt font-bold tracking-[0.1em] sm:tracking-[0.14em] uppercase text-[11px] sm:text-[12px]">
                   {column.title}
                 </p>
-                <ul className="mt-6 space-y-4">
+                <ul className="mt-3.5 sm:mt-6 space-y-2 sm:space-y-4">
                   {column.links.map((link) => {
                     const isInternal = link.href.startsWith('/') && !link.href.includes('#');
                     return (
@@ -85,14 +86,14 @@ export function Footer() {
                         {isInternal ? (
                           <Link
                             to={link.href}
-                            className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
+                            className="block break-words text-[12px] min-[390px]:text-[13px] sm:text-[15px] font-medium text-cobalt leading-tight sm:leading-normal transition-colors duration-300 hover:text-accent"
                           >
                             {link.label}
                           </Link>
                         ) : (
                           <a
                             href={link.href}
-                            className="text-[15px] font-medium text-cobalt transition-colors duration-300 hover:text-accent"
+                            className="block break-words text-[12px] min-[390px]:text-[13px] sm:text-[15px] font-medium text-cobalt leading-tight sm:leading-normal transition-colors duration-300 hover:text-accent"
                           >
                             {link.label}
                           </a>
