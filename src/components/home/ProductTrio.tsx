@@ -1,86 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Check } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionHeading } from '@/components/home/SectionHeading';
 import { ProductRender } from '@/components/home/ProductRender';
 import { products, type Product, type ProductFormat } from '@/components/home/productData';
+import { useMobileCarousel } from '@/hooks/useMobileCarousel';
 
 export function ProductTrio() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeIdx, setActiveIdx] = useState(0);
-  const isInteracting = useRef(false);
-  const pauseTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const rafId = useRef<number | null>(null);
-
-  const pauseAuto = () => {
-    isInteracting.current = true;
-    if (pauseTimer.current) clearTimeout(pauseTimer.current);
-    pauseTimer.current = setTimeout(() => {
-      isInteracting.current = false;
-    }, 5000);
-  };
-
-  const getTargetLeft = (el: HTMLElement, target: HTMLElement) => {
-    const centerOffset = (el.clientWidth - target.clientWidth) / 2;
-    const idealLeft = target.offsetLeft - centerOffset;
-    return Math.max(0, Math.min(el.scrollWidth - el.clientWidth, idealLeft));
-  };
-
-  const handleScroll = () => {
-    if (rafId.current) cancelAnimationFrame(rafId.current);
-    rafId.current = requestAnimationFrame(() => {
-      const el = containerRef.current;
-      if (!el || !el.children.length) return;
-      const containerCenter = el.scrollLeft + el.clientWidth / 2;
-      let closestIdx = 0;
-      let minDiff = Infinity;
-      for (let i = 0; i < products.length; i++) {
-        const child = el.children[i] as HTMLElement | undefined;
-        if (!child) continue;
-        const childCenter = child.offsetLeft + child.clientWidth / 2;
-        const diff = Math.abs(containerCenter - childCenter);
-        if (diff < minDiff) {
-          minDiff = diff;
-          closestIdx = i;
-        }
-      }
-      setActiveIdx((current) => (current !== closestIdx ? closestIdx : current));
-    });
-  };
-
-  const scrollTo = (idx: number) => {
-    const el = containerRef.current;
-    if (!el || !el.children[idx]) return;
-    pauseAuto();
-    const target = el.children[idx] as HTMLElement;
-    const left = getTargetLeft(el, target);
-    el.scrollTo({ left, behavior: 'smooth' });
-    setActiveIdx(idx);
-  };
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || window.innerWidth >= 768) return;
-    const timer = setInterval(() => {
-      if (isInteracting.current) return;
-      const el = containerRef.current;
-      if (!el || !el.children.length) return;
-      setActiveIdx((prev) => {
-        const next = (prev + 1) % products.length;
-        const target = el.children[next] as HTMLElement | undefined;
-        if (target) {
-          const left = getTargetLeft(el, target);
-          el.scrollTo({ left, behavior: 'smooth' });
-        }
-        return next;
-      });
-    }, 4000);
-
-    return () => {
-      clearInterval(timer);
-      if (pauseTimer.current) clearTimeout(pauseTimer.current);
-      if (rafId.current) cancelAnimationFrame(rafId.current);
-    };
-  }, []);
+  const { containerRef, activeIdx, scrollTo, handleScroll, pauseAuto } = useMobileCarousel({
+    count: products.length,
+    autoScroll: false,
+  });
 
   return (
     <section id="shop" className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">

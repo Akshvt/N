@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { PillButton } from '@/components/ui/PillButton';
 import { Reveal } from '@/components/motion/Reveal';
+import { useMobileCarousel } from '@/hooks/useMobileCarousel';
 
 const cards = [
   {
@@ -25,6 +26,12 @@ const cards = [
 ];
 
 export function ScienceTeaser() {
+  const { containerRef, activeIdx, scrollTo, handleScroll, pauseAuto } = useMobileCarousel({
+    count: cards.length,
+    autoScroll: true,
+    interval: 4000,
+  });
+
   return (
     <section id="science" className="bg-lilac text-ink">
       <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">
@@ -38,15 +45,34 @@ export function ScienceTeaser() {
           </p>
         </Reveal>
 
-        <div className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:pt-0">
+        <div
+          ref={containerRef}
+          onScroll={handleScroll}
+          onTouchStart={pauseAuto}
+          className="mt-12 sm:mt-16 -mx-6 px-6 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-6 md:overflow-visible md:pb-0 md:pt-0"
+        >
           {cards.map((card, index) => (
             <Reveal
               key={card.title}
               delay={index * 120}
-              className="flex w-[82%] sm:w-[70%] shrink-0 snap-center flex-col md:w-auto md:shrink md:snap-align-none h-full"
+              className="flex w-[82%] sm:w-[70%] shrink-0 snap-center flex-col md:w-auto md:shrink md:snap-align-none h-full will-change-transform"
             >
               <ScienceCard {...card} id={`science-card-${index}`} />
             </Reveal>
+          ))}
+        </div>
+
+        {/* Mobile indicator dots */}
+        <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+          {cards.map((card, index) => (
+            <button
+              key={card.title}
+              onClick={() => scrollTo(index)}
+              aria-label={`Go to science step ${index + 1}: ${card.title}`}
+              className={`h-1.5 rounded-full transition-all duration-500 ease-editorial ${
+                index === activeIdx ? 'w-8 bg-cobalt' : 'w-2 bg-ink/20 hover:bg-ink/40'
+              }`}
+            />
           ))}
         </div>
 
