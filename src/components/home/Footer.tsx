@@ -50,14 +50,14 @@ export function Footer() {
       <div className="mx-auto max-w-content px-6 pb-10 pt-20 md:px-10 md:pt-32">
         <div className="grid gap-16 md:grid-cols-12">
           {/* Brand Logo & Tagline */}
-          <div className="md:col-span-5">
+          <div className="flex flex-col items-center text-center md:col-span-5 md:items-start md:text-left">
             <div className="flex items-center gap-4">
               <img
                 src="/brand/namhya-icon-clean.png"
                 alt="By Namhya"
                 className="h-16 w-auto object-contain md:h-20 [filter:drop-shadow(0_0_1px_rgba(0,0,0,0.85))_drop-shadow(0_1px_2px_rgba(0,0,0,0.25))]"
               />
-              <div className="flex flex-col">
+              <div className="flex flex-col text-left">
                 <span className="font-display text-[11px] font-bold tracking-[0.25em] text-cobalt uppercase">
                   By
                 </span>
@@ -72,28 +72,28 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-6 md:col-span-5 md:col-start-7 md:gap-10">
+          <div className="grid grid-cols-3 gap-2 sm:gap-6 md:col-span-5 md:col-start-7 md:gap-10 text-center">
             {columns.map((column) => (
-              <div key={column.title} className="min-w-0">
-                <p className="eyebrow text-cobalt font-bold tracking-[0.1em] sm:tracking-[0.14em] uppercase text-[11px] sm:text-[12px]">
+              <div key={column.title} className="min-w-0 text-center">
+                <p className="eyebrow text-cobalt font-bold tracking-[0.1em] sm:tracking-[0.14em] uppercase text-[11px] sm:text-[12px] text-center">
                   {column.title}
                 </p>
-                <ul className="mt-3.5 sm:mt-6 space-y-2 sm:space-y-4">
+                <ul className="mt-3.5 sm:mt-6 space-y-2 sm:space-y-4 text-center">
                   {column.links.map((link) => {
                     const isInternal = link.href.startsWith('/') && !link.href.includes('#');
                     return (
-                      <li key={link.label}>
+                      <li key={link.label} className="text-center">
                         {isInternal ? (
                           <Link
                             to={link.href}
-                            className="block break-words text-[12px] min-[390px]:text-[13px] sm:text-[15px] font-medium text-cobalt leading-tight sm:leading-normal transition-colors duration-300 hover:text-accent"
+                            className="block text-center break-words text-[12px] min-[390px]:text-[13px] sm:text-[15px] font-medium text-cobalt leading-tight sm:leading-normal transition-colors duration-300 hover:text-accent"
                           >
                             {link.label}
                           </Link>
                         ) : (
                           <a
                             href={link.href}
-                            className="block break-words text-[12px] min-[390px]:text-[13px] sm:text-[15px] font-medium text-cobalt leading-tight sm:leading-normal transition-colors duration-300 hover:text-accent"
+                            className="block text-center break-words text-[12px] min-[390px]:text-[13px] sm:text-[15px] font-medium text-cobalt leading-tight sm:leading-normal transition-colors duration-300 hover:text-accent"
                           >
                             {link.label}
                           </a>
