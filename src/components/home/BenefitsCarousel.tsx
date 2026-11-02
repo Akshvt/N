@@ -92,10 +92,8 @@ function DesktopBenefits() {
 }
 
 function MobileBenefits() {
-  const { containerRef, handleScroll, pauseAuto } = useMobileCarousel({
+  const { containerRef, handleScroll } = useMobileCarousel({
     count: benefits.length,
-    autoScroll: true,
-    interval: 4000,
   });
 
   return (
@@ -109,7 +107,6 @@ function MobileBenefits() {
       <div
         ref={containerRef}
         onScroll={handleScroll}
-        onTouchStart={pauseAuto}
         className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden touch-pan-x scroll-smooth"
       >
         {benefits.map((benefit) => (

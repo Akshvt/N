@@ -86,7 +86,6 @@ export function Testimonials() {
         <div className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}>
           {reviews.map((review, index) => {
             const isZigzagOffset = index % 2 === 1;
-            const floatClass = isZigzagOffset ? 'animate-float-wave-down' : 'animate-float-wave-up';
 
             return (
               <div
@@ -95,24 +94,22 @@ export function Testimonials() {
                   isZigzagOffset ? 'translate-y-8 md:translate-y-12' : 'translate-y-0'
                 }`}
               >
-                <div className={floatClass}>
-                  <figure className="flex w-[320px] shrink-0 flex-col justify-between rounded-card bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg md:w-[540px] md:p-12">
-                    <div>
-                      <div className="flex gap-1" role="img" aria-label="Rated 5 out of 5">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star key={i} size={18} className="fill-ink text-ink" aria-hidden="true" />
-                        ))}
-                      </div>
-                      <blockquote className="mt-8 font-display text-[24px] font-medium leading-[32px] tracking-[-0.02em] text-ink md:text-[30px] md:leading-[38px]">
-                        &ldquo;{review.quote}&rdquo;
-                      </blockquote>
+                <figure className="flex w-[320px] shrink-0 flex-col justify-between rounded-card bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg md:w-[540px] md:p-12">
+                  <div>
+                    <div className="flex gap-1" role="img" aria-label="Rated 5 out of 5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} size={18} className="fill-ink text-ink" aria-hidden="true" />
+                      ))}
                     </div>
-                    <figcaption className="mt-10 flex flex-col gap-1 text-[15px]">
-                      <span className="font-medium text-ink">{review.name}</span>
-                      <span className="text-ink-muted">{review.detail}</span>
-                    </figcaption>
-                  </figure>
-                </div>
+                    <blockquote className="mt-8 font-display text-[24px] font-medium leading-[32px] tracking-[-0.02em] text-ink md:text-[30px] md:leading-[38px]">
+                      &ldquo;{review.quote}&rdquo;
+                    </blockquote>
+                  </div>
+                  <figcaption className="mt-10 flex flex-col gap-1 text-[15px]">
+                    <span className="font-medium text-ink">{review.name}</span>
+                    <span className="text-ink-muted">{review.detail}</span>
+                  </figcaption>
+                </figure>
               </div>
             );
           })}
@@ -122,7 +119,6 @@ export function Testimonials() {
         <div aria-hidden="true" className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}>
           {reviews.map((review, index) => {
             const isZigzagOffset = index % 2 === 1;
-            const floatClass = isZigzagOffset ? 'animate-float-wave-down' : 'animate-float-wave-up';
 
             return (
               <div
@@ -131,24 +127,22 @@ export function Testimonials() {
                   isZigzagOffset ? 'translate-y-8 md:translate-y-12' : 'translate-y-0'
                 }`}
               >
-                <div className={floatClass}>
-                  <figure className="flex w-[320px] shrink-0 flex-col justify-between rounded-card bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg md:w-[540px] md:p-12">
-                    <div>
-                      <div className="flex gap-1" role="img" aria-label="Rated 5 out of 5">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <Star key={i} size={18} className="fill-ink text-ink" aria-hidden="true" />
-                        ))}
-                      </div>
-                      <blockquote className="mt-8 font-display text-[24px] font-medium leading-[32px] tracking-[-0.02em] text-ink md:text-[30px] md:leading-[38px]">
-                        &ldquo;{review.quote}&rdquo;
-                      </blockquote>
+                <figure className="flex w-[320px] shrink-0 flex-col justify-between rounded-card bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-lg md:w-[540px] md:p-12">
+                  <div>
+                    <div className="flex gap-1" role="img" aria-label="Rated 5 out of 5">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} size={18} className="fill-ink text-ink" aria-hidden="true" />
+                      ))}
                     </div>
-                    <figcaption className="mt-10 flex flex-col gap-1 text-[15px]">
-                      <span className="font-medium text-ink">{review.name}</span>
-                      <span className="text-ink-muted">{review.detail}</span>
-                    </figcaption>
-                  </figure>
-                </div>
+                    <blockquote className="mt-8 font-display text-[24px] font-medium leading-[32px] tracking-[-0.02em] text-ink md:text-[30px] md:leading-[38px]">
+                      &ldquo;{review.quote}&rdquo;
+                    </blockquote>
+                  </div>
+                  <figcaption className="mt-10 flex flex-col gap-1 text-[15px]">
+                    <span className="font-medium text-ink">{review.name}</span>
+                    <span className="text-ink-muted">{review.detail}</span>
+                  </figcaption>
+                </figure>
               </div>
             );
           })}
