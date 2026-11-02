@@ -152,10 +152,12 @@
   animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Pause marquee when hovering anywhere on track */
-.marquee-wrapper:hover .animate-marquee,
-.marquee-wrapper:hover .animate-marquee-reverse {
-  animation-play-state: paused;
+/* Pause marquee when hovering anywhere on track with a mouse pointer */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-wrapper:hover .animate-marquee,
+  .marquee-wrapper:hover .animate-marquee-reverse {
+    animation-play-state: paused;
+  }
 }
 
 /* Science Page Glassmorphism & Effects */

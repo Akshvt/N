@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 
@@ -37,6 +37,38 @@ const reviews = [
 
 export function Testimonials() {
   const [direction, setDirection] = useState<'normal' | 'reverse'>('normal');
+  const [isPaused, setIsPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const togglePause = () => {
+    setIsPaused((prev) => {
+      const next = !prev;
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+      if (next) {
+        pauseTimerRef.current = setTimeout(() => setIsPaused(false), 8000);
+      }
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    if (!isPaused) return;
+
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsPaused(false);
+      }
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener('touchstart', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    };
+  }, [isPaused]);
 
   const animationClass = direction === 'normal' ? 'animate-marquee' : 'animate-marquee-reverse';
 
@@ -81,9 +113,18 @@ export function Testimonials() {
       </div>
 
       {/* Auto-scrolling zigzag floating tracks */}
-      <div className="marquee-wrapper mt-[clamp(1.5rem,1.1rem+1.8vw,2.5rem)] flex w-full overflow-hidden py-[clamp(1.5rem,1rem+2vw,2.5rem)]">
+      <div
+        ref={containerRef}
+        role="region"
+        aria-label="Customer testimonials"
+        onClick={togglePause}
+        className="marquee-wrapper cursor-pointer select-none mt-[clamp(1.5rem,1.1rem+1.8vw,2.5rem)] flex w-full overflow-hidden py-[clamp(1.5rem,1rem+2vw,2.5rem)]"
+      >
         {/* Track 1 */}
-        <div className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}>
+        <div
+          style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+          className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}
+        >
           {reviews.map((review, index) => {
             const isZigzagOffset = index % 2 === 1;
 
@@ -116,7 +157,11 @@ export function Testimonials() {
         </div>
 
         {/* Track 2 (Duplicate for infinite seamless scroll) */}
-        <div aria-hidden="true" className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}>
+        <div
+          aria-hidden="true"
+          style={{ animationPlayState: isPaused ? 'paused' : undefined }}
+          className={`flex shrink-0 items-center gap-6 pr-6 md:gap-8 md:pr-8 ${animationClass}`}
+        >
           {reviews.map((review, index) => {
             const isZigzagOffset = index % 2 === 1;
 
