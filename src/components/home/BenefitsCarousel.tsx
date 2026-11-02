@@ -97,10 +97,10 @@ function MobileBenefits() {
   });
 
   return (
-    <div className="pt-20 pb-14 md:hidden">
-      <div className="px-6">
-        <p className="eyebrow">What it helps with</p>
-        <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em]">
+    <div className="pt-20 pb-14 md:hidden text-center">
+      <div className="px-6 max-w-xl mx-auto flex flex-col items-center">
+        <p className="eyebrow text-center">What it helps with</p>
+        <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-center">
           Four reasons to stay consistent.
         </h2>
       </div>

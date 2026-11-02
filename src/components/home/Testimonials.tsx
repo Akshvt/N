@@ -43,10 +43,10 @@ export function Testimonials() {
   return (
     <section className="overflow-hidden pt-[clamp(3.125rem,1.9rem+5.5vw,6rem)] pb-[clamp(4.625rem,3.18rem+6.4vw,8rem)]">
       {/* Header */}
-      <div className="mx-auto flex max-w-content items-end justify-between gap-6 px-6 md:px-10">
-        <Reveal>
-          <p className="eyebrow">Real results, real routines</p>
-          <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[56px] md:leading-[60px]">
+      <div className="mx-auto flex max-w-content flex-col items-center text-center gap-6 px-6 md:px-10">
+        <Reveal className="text-center max-w-2xl mx-auto flex flex-col items-center">
+          <p className="eyebrow text-center">Real results, real routines</p>
+          <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[56px] md:leading-[60px] text-center">
             Loved by people who check.
           </h2>
         </Reveal>

@@ -31,13 +31,12 @@ export function FaqAccordion() {
 
   return (
     <section className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-36">
-      <div className="grid gap-12 md:grid-cols-12">
-        <div className="md:col-span-4">
-          <SectionHeading eyebrow="Questions" title="Good questions, plain answers." />
-        </div>
+      <div className="mb-14 sm:mb-16">
+        <SectionHeading eyebrow="Questions" title="Good questions, plain answers." />
+      </div>
 
-        <Reveal delay={150} className="md:col-span-7 md:col-start-6">
-          <ul className="border-t border-ink/15">
+      <Reveal delay={150} className="mx-auto max-w-3xl">
+        <ul className="border-t border-ink/15">
             {questions.map((item, index) => {
               const open = openIndex === index;
               const panelId = `faq-panel-${index}`;
@@ -77,7 +76,6 @@ export function FaqAccordion() {
             })}
           </ul>
         </Reveal>
-      </div>
     </section>
   );
 }

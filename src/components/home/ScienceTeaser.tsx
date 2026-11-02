@@ -32,13 +32,13 @@ export function ScienceTeaser() {
 
   return (
     <section id="science" className="bg-lilac text-ink">
-      <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40">
-        <Reveal>
+      <div className="mx-auto max-w-content px-6 py-20 md:px-10 md:py-40 text-center">
+        <Reveal className="text-center max-w-3xl mx-auto flex flex-col items-center">
           <p className="eyebrow text-cobalt font-bold tracking-[0.12em] uppercase">Our science</p>
-          <h2 className="mt-4 max-w-3xl font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-ink md:text-[56px] md:leading-[60px]">
+          <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] text-ink md:text-[56px] md:leading-[60px]">
             Tested for those who test themselves.
           </h2>
-          <p className="mt-4 max-w-xl text-[17px] leading-[28px] text-ink-muted">
+          <p className="mt-4 max-w-xl mx-auto text-[17px] leading-[28px] text-ink-muted">
             Independent clinical verification. Every batch verified for potency, heavy metals, and label precision.
           </p>
         </Reveal>

@@ -10,12 +10,12 @@ export function Hero() {
   return (
     <section id="top" className="relative flex min-h-screen items-center overflow-hidden pb-24 pt-[176px] md:pb-32">
       <div className="mx-auto grid w-full max-w-content items-center gap-16 px-6 md:px-10 lg:grid-cols-12">
-        <div className="lg:col-span-7">
-          <Reveal>
-            <p className="eyebrow">Science-backed daily formulas</p>
+        <div className="lg:col-span-7 flex flex-col items-center text-center">
+          <Reveal className="text-center">
+            <p className="eyebrow text-center">Science-backed daily formulas</p>
           </Reveal>
 
-          <h1 className="mt-6 font-display text-[38px] font-medium leading-[42px] tracking-[-0.02em] text-ink min-[390px]:text-[50px] min-[390px]:leading-[54px] md:text-[88px] md:leading-[92px]">
+          <h1 className="mt-6 font-display text-[38px] font-medium leading-[42px] tracking-[-0.02em] text-ink min-[390px]:text-[50px] min-[390px]:leading-[54px] md:text-[88px] md:leading-[92px] text-center">
             <RevealLines
               lines={[
                 'Nutrition for a',
@@ -27,15 +27,15 @@ export function Hero() {
             />
           </h1>
 
-          <Reveal delay={500}>
-            <p className="mt-8 max-w-md text-[17px] leading-[28px] text-ink-muted">
+          <Reveal delay={500} className="text-center">
+            <p className="mt-8 max-w-md mx-auto text-[17px] leading-[28px] text-ink-muted text-center">
               Lab-tested, whole-food based supplements for real women and active adults. Made in India, one
               tub or sachet at a time.
             </p>
           </Reveal>
 
-          <Reveal delay={600}>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+          <Reveal delay={600} className="text-center">
+            <div className="mt-10 flex flex-wrap justify-center items-center gap-4">
               <PillButton href="/#shop">
                 Shop now
                 <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
@@ -46,8 +46,8 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <Reveal delay={750}>
-            <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-4 text-[13px] font-medium uppercase tracking-[0.08em] text-cobalt">
+          <Reveal delay={750} className="text-center">
+            <div className="mt-14 flex flex-wrap justify-center items-center gap-x-6 gap-y-4 text-[13px] font-medium uppercase tracking-[0.08em] text-cobalt">
               <span className="flex items-center gap-2">
                 <FlaskConical size={16} strokeWidth={1.75} className="text-cobalt" aria-hidden="true" />
                 Lab tested

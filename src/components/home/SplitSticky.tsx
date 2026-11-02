@@ -45,17 +45,17 @@ export function SplitSticky() {
     <section className="mx-auto max-w-content px-6 md:px-10">
       <div ref={ref} className="grid gap-12 py-16 md:grid-cols-2 md:items-start md:gap-24 md:py-0">
         {/* Sticky Left Column with Centered Content */}
-        <div className="md:sticky md:top-0 md:flex md:h-screen md:flex-col md:justify-center">
-          <Reveal>
+        <div className="md:sticky md:top-0 md:flex md:h-screen md:flex-col md:justify-center items-center text-center">
+          <Reveal className="text-center flex flex-col items-center">
             <p className="eyebrow text-cobalt font-bold tracking-[0.12em] uppercase">How it is made</p>
             <h2 className="mt-4 font-display text-[40px] font-medium leading-[44px] tracking-[-0.02em] md:text-[68px] md:leading-[72px]">
               Designed for your body.
             </h2>
-            <p className="mt-6 max-w-sm text-[17px] leading-[28px] text-ink-muted">
+            <p className="mt-6 max-w-sm mx-auto text-[17px] leading-[28px] text-ink-muted">
               Three principles behind every formula we make, shown step by step as you read on.
             </p>
           </Reveal>
-          <div className="mt-10 hidden items-center gap-3 md:flex" aria-hidden="true">
+          <div className="mt-10 hidden items-center justify-center gap-3 md:flex" aria-hidden="true">
             {steps.map((step, index) => (
               <span
                 key={step.title}
