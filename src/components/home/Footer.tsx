@@ -152,9 +152,9 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright & policies */}
-        <div className="mt-16 flex flex-col gap-6 border-t border-ink/15 pt-8 text-[13px] text-ink-muted md:flex-row md:items-center md:justify-between">
-          <p>&copy; {new Date().getFullYear()} By Namhya. All rights reserved.</p>
-          <ul className="flex flex-wrap gap-x-8 gap-y-3">
+        <div className="mt-16 flex flex-col items-center gap-6 border-t border-ink/15 pt-8 text-[13px] text-ink-muted text-center md:flex-row md:items-center md:justify-between">
+          <p className="text-center">&copy; {new Date().getFullYear()} By Namhya. All rights reserved.</p>
+          <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
             {policies.map((policy) => (
               <li key={policy}>
                 <a
